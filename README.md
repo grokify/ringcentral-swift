@@ -29,7 +29,8 @@ however it is not guaranteed to be exactly the same.
 For now, drag the "lib" folder into your directory.
 A dependency manager using CocoaPods will be implemented in future.
 
-**FOR THE MOST PART, EVERYTHING SHOULD BE SET UP CORRECTLY.\n**
+**FOR THE MOST PART, EVERYTHING SHOULD BE SET UP CORRECTLY.**
+
 **Some of these steps are only for if the project becomes corrupted.**
 
 To set up CocoaPods:
