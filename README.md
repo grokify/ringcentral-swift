@@ -10,12 +10,8 @@ RingCentral Swift SDK
 5. [Generic Requests](#generic-requests)
 6. [Performing RingOut](#performing-ringout)
 7. [Sending SMS](#sending-sms)
-1. [Account](#account)
-2. [Call Log](#call-log)
-3. [Presence](#presence)
-4. [Messaging](#messaging)
-6. [Subscription](#subscription)
-8. [SDK Demos](#sdk-demos)
+8. [Subscription](#subscription)
+9. [SDK Demos](#sdk-demos)
 
 
 ***
@@ -32,6 +28,9 @@ however it is not guaranteed to be exactly the same.
 
 For now, drag the "lib" folder into your directory.
 A dependency manager using CocoaPods will be implemented in future.
+
+**FOR THE MOST PART, EVERYTHING SHOULD BE SET UP CORRECTLY**
+**Some of these steps are only for if the project becomes corrupted.**
 
 To set up CocoaPods:
 
@@ -110,30 +109,22 @@ or (to authorize with extension):
 
     platform.authorize(username, ext: ext, password: password)
 
+The SDK will automatically refresh the token so long the refresh token lives.
+
 *Caution*: If no extension is specified, platform automitically refers extension 101 (default).
 ***
 
 # Generic Requests
 
-Currently, all method calls support a standard (DATA, RESPONSE, ERROR) return protocal
-or returns a Response object containing the same things.
-A parsing class will be provided to use at your disposal, however the functionality of
-what it returns is limited (based on what developers will likely need most).
-
-**Most method calls will follow this behavior:**
+Currently all requests can be made through the following:
 
     apiCall([
         "method": "POST",
-        "url": "/restapi/v1.0/account/~/extension/~/ringout",
-        "body": ["to": ["phoneNumber": "14088861168"],
-                 "from": ["phoneNumber": "14088861168"],
-                 "callerId": ["phoneNumber": "13464448343"],
-                 "playPrompt": "true"]
+        "url": "/restapi/v1.0/",
+        "body": ""
     ])
 
-Get rid of the last section of curly braces if you do not need a callback.
-
-Rule of thumb: Always check if 'error' is nil
+Attach the following code as a completion handler (callback) if needed:
 
     {(data, response, error) in
         if (error) {
@@ -159,122 +150,66 @@ For readability of the data
 
     println(NSString(data: data!, encoding: NSUTF8StringEncoding))
 
-*Usability*: Method calls for RingOut or SMS (anything that you dont need information back from)
-can be directly called without setting the 'feedback' to a variable.
-
 # Performing RingOut
 
-RingOut follows a two-legged style telecommunication protocol.                  
+RingOut follows a two-legged style telecommunication protocol.
+The following method call is used to send a Ring Out.
 
-The following method call is used to send a Ring Out.                           
-If successful it will return true, if not it will return false.
-<!-- language: swift -->
-platform.postRingOut(from: "12345678912", to: "12345678912") // true
-
-
-**Additional Features**:
-
-The following method call is used to obtain the status of a Ring Out.           
-Returns the generic (data, response, error) return type specified above.        
-<!-- language: swift -->
-platform.getRingOut(ringId: "12345678912", to: "12345678912")
-
-
-The following method call is used to delete a ring out object.
-Returns true if successful, false if not.
-The parameter given is the "ringId" of the Ring Out object.
-<!-- language: swift -->
-platform.deleteRingOut("123") // true
-
+    apiCall([
+        "method": "POST",
+        "url": "/restapi/v1.0/account/~/extension/~/ringout",
+        "body": ["to": ["phoneNumber": "14088861168"],
+                 "from": ["phoneNumber": "14088861168"],
+                 "callerId": ["phoneNumber": "13464448343"],
+                 "playPrompt": "true"]
+    ])
 
 # Sending SMS
 
 The follow method call is used to send a SMS.
-If successful it will return true, false if not.
-<!-- language: swift -->
+
 platform.postSms("hi i'm min", to: "12345678912") // true
-
-
-**Additional Features**:
-
-The following call is used to delete a message object that was sent.
-(Does not "UNSEND" the text message, simply removes from database.)
-A boolean is returned to indicate success or failure.
-<!-- language: swift -->
-platform.deleteMessage("123")
-
-***
-
-**Caution**:    The following method descriptions will be abbreviated.
-User may assume syntax will remain the same throughout.
-
-## Account
-
-All of the following methods return in the (data, response, error) syntax style.
-
-**Get account ID**:
-<!-- language: swift -->
-platform.getAccountId() 
-
-**Get account and extension ID**:
-<!-- language: swift -->
-platform.getAccountIdExtensionId() 
-
-**Get extensions of current account**:
-<!-- language: swift -->
-platform.getExtensions() 
-
-
-## Call Log
-
-All of the following methods return in the (data, response, error) syntax style.
-
-**Get call log (along with applying filters)**:
-<!-- language: lang-swift -->
-platform.getCallLog()
-
-platform.getCallLog("bunch of random filters") 
-// filters must be in the format param1=one&param2=two
-
-## Presence
-
-**Gets the presence of any calls on the current account**:
-<!-- language: swift -->
-platform.getPresence()
-
-## Messaging
-
-The following call is used to obtain a message that was sent.
-Follows (data, response, error) return
-<!-- language: swift -->
-let feedback = platform.getMessage("123") // message ID
-// or
-let feedback = platform.getMessages("123") //conversation ID
-
-**Changes the message (currently only supports "READ" <--> "UNREAD" switching)**
-<!-- language: swift -->
-platform.postMessage("123", text:"hi i'm min") // message ID
-
-**Gets the attachment of a message**:
-<!-- language: swift -->
-platform.getAttachment("123", attachId: "1234") // message ID and attachment ID
-
-
-
-## Subscription
-
-Currently in progress.
-As of now, responses to console can be obtained, however not as actaul objects.
-Can visibly see real time responses for subscription.
-
-***
-
-# SDK Demo
-
-Log in page:
     
+    apiCall([
+        "method": "POST",
+        "url": "/restapi/v1.0/account/~/extension/~/sms",
+        "body": ["to": [{"phoneNumber": "14088861168"}],
+                 "from": ["phoneNumber": "14088861168"],
+                 "text": "send message"
+    ])
 
-2. Features Login page transitioning into a pseudo-phone graphics UI, which transitions into a call log.
+
+# Subscription
+
+To enable subscription, type:
+
+    self.subscription = Subscription(platform: self)
+    subscription!.register()
+
+In order for PubNub to do something after a callback:
+
+    platform.subscription!.setMethod({
+        (arg) in
+        // do whatever you need to with the callback variable 'arg'
+    })
+
+An example in the demo is provided that changes the status color accordingly.
+
+***
+
+# SDK Demo 1
+
+Login page:
+    Insert app_key, app_secret, username, password in order to log in.
+    This is generally done through a configuration file.
+
+Phone page:
+    Use the number pad to type the numbers you need.
+    The Status Bar (initially shown as a red rectangle 'No Call') changes color accordingly.
+    Allows the sending of SMS and Fax, along with the ability to make calls.
+
+Log page:
+    Shows implementation of the 'Call Log' along with the 'Message Log'.
 
 
 
