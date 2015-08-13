@@ -203,16 +203,18 @@ Login page:
     Insert app_key, app_secret, username, password in order to log in.
     This is generally done through a configuration file.
 
+![Alt text](/img/login.png?raw=true "Optional Title")
+
 Phone page:
     Use the number pad to type the numbers you need.
     The Status Bar (initially shown as a red rectangle 'No Call') changes color accordingly.
     Allows the sending of SMS and Fax, along with the ability to make calls.
 
+![Alt text](/img/phone.png?raw=true "Optional Title")
+
 Log page:
     Shows implementation of the 'Call Log' along with the 'Message Log'.
 
-![Alt text](/img/login.png?raw=true "Optional Title")
-![Alt text](/img/phone.png?raw=true "Optional Title")
 ![Alt text](/img/log.png?raw=true "Optional Title")
 
 
