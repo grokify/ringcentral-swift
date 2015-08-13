@@ -34,8 +34,8 @@ For now, drag the "lib" folder into your directory.
 A dependency manager using CocoaPods will be implemented in future.
 
 To set up CocoaPods:
-<!-- language: cmd -->
-$ sudo gem install cocoapods
+
+    $ sudo gem install cocoapods
 
 The same line is used to update cocoapods accordingly.
 
