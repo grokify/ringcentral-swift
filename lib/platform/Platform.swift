@@ -210,7 +210,7 @@ class Platform {
         request.send() {
             (data, response, error) in
             completion(data: data, response: response, error: error)
-        }
+        }	
 
     }
     
