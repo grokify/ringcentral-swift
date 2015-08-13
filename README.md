@@ -63,7 +63,7 @@ If you are in the OSx platform:
     pod 'PubNub', '~>4.0'
     end
 
-Go back into terminal and type the following:
+Go back into terminal (navigated to the project folder with 'Podfile') and type the following:
 
     $ pod update
     $ pod install
@@ -211,7 +211,8 @@ Phone page:
 Log page:
     Shows implementation of the 'Call Log' along with the 'Message Log'.
 
-
-
+![Alt text](/img/login.png?raw=true "Optional Title")
+![Alt text](/img/phone.png?raw=true "Optional Title")
+![Alt text](/img/log.png?raw=true "Optional Title")
 
 
