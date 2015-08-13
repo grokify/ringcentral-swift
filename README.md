@@ -41,40 +41,40 @@ The same line is used to update cocoapods accordingly.
 
 Set up a new Xcode project, and navigate to it within Terminal.
 Within Terminal, type:
-<!-- language: cmd -->
-$ pod init
-$ open -a Xcode Podfile
+
+    $ pod init
+    $ open -a Xcode Podfile
 
 That will set up a Podfile and open it.
 Add the following code into the newly created Podfile if in 'iOS' platform:
-<!-- language: cmd -->
-platform :ios, '8.0'
-target 'YourProject' do
-source 'https://github.com/CocoaPods/Specs.git'
-pod 'PubNub', '~>4.0'
-end
-target 'YourProjectTests' do
-end
+
+    platform :ios, '8.0'
+    target 'YourProject' do
+    source 'https://github.com/CocoaPods/Specs.git'
+    pod 'PubNub', '~>4.0'
+    end
+    target 'YourProjectTests' do
+    end
 
 If you are in the OSx platform:
-<!-- language: cmd -->
-platform :osx, '10.0'
-target 'YourProjectName' do
-source 'https://github.com/CocoaPods/Specs.git'
-pod 'PubNub', '~>4.0'
-end
+
+    platform :osx, '10.0'
+    target 'YourProjectName' do
+    source 'https://github.com/CocoaPods/Specs.git'
+    pod 'PubNub', '~>4.0'
+    end
 
 Go back into terminal and type the following:
-<!-- language: cmd -->
-$ pod update
-$ pod install
+
+    $ pod update
+    $ pod install
 
 If for some reason there is not an Objective-C bridging header:
 Create a new File (File -> New -> File) of type Objective-C.
 You will be promped "Would you like to configure an Objective-C bridging header?".
 Select Yes, and insert the following into the Bridging Header file (.h).
-<!-- language: swift -->
-#import <PubNub/PubNub.h>
+
+    #import <PubNub/PubNub.h>
 
 You will now be able to use the PubNub SDK written in Objective-C.
 
@@ -83,12 +83,12 @@ You will now be able to use the PubNub SDK written in Objective-C.
 The RingCentral SDK is initiated in the following ways.
 
 **Sandbox:**
-<!-- language: swift -->
-var rcsdk = SDK(appKey: app_key, appSecret: app_secret, server: SDK.RC_SERVER_SANDBOX)
+
+    var rcsdk = SDK(appKey: app_key, appSecret: app_secret, server: SDK.RC_SERVER_SANDBOX)
 
 **Production:**
-<!-- language: swift -->
-var rcsdk = SDK(appKey: app_key, appSecret: app_secret, server: SDK.RC_SERVER_PRODUCTION)
+
+    var rcsdk = SDK(appKey: app_key, appSecret: app_secret, server: SDK.RC_SERVER_PRODUCTION)
 
 The 'app_key' and 'app_secret' should be read from a configuration file.
 
@@ -100,18 +100,15 @@ will be used as the 'server' parameter.
 
 To authorize the platform, extract the 'Platform' object:
 
-<!-- language: swift -->
-var platform = rcsdk.getPlatform()
-
+    var platform = rcsdk.getPlatform()
 
 Once the platform is extracted, call:
 
-<!-- language: swift -->
-platform.authorize(username, password: password)
+    platform.authorize(username, password: password)
 
 or (to authorize with extension):
-<!-- language: swift -->
-platform.authorize(username, ext: ext, password: password)
+
+    platform.authorize(username, ext: ext, password: password)
 
 *Caution*: If no extension is specified, platform automitically refers extension 101 (default).
 ***
@@ -124,45 +121,43 @@ A parsing class will be provided to use at your disposal, however the functional
 what it returns is limited (based on what developers will likely need most).
 
 **Most method calls will follow this behavior:**
-<!-- language: swift -->
-apiCall([
-    "method": "POST",
-    "url": "/restapi/v1.0/account/~/extension/~/ringout",
-    "body": ["to": ["phoneNumber": "14088861168"],
-             "from": ["phoneNumber": "14088861168"],
-             "callerId": ["phoneNumber": "13464448343"],
-             "playPrompt": "true"]
-])
+
+    apiCall([
+        "method": "POST",
+        "url": "/restapi/v1.0/account/~/extension/~/ringout",
+        "body": ["to": ["phoneNumber": "14088861168"],
+                 "from": ["phoneNumber": "14088861168"],
+                 "callerId": ["phoneNumber": "13464448343"],
+                 "playPrompt": "true"]
+    ])
 
 Get rid of the last section of curly braces if you do not need a callback.
 
 Rule of thumb: Always check if 'error' is nil
-<!-- language: swift -->
-{(data, response, error) in
-if (error) {
-// do something for error
-} else {
-// continue with code
-}
-}
+
+    {(data, response, error) in
+        if (error) {
+            // do something for error
+        } else {
+            // continue with code
+        }
+    }
 
 For simple checking of a successful status code:
-<!-- language: swift -->
-(response as! NSHTTPURLResponse).statusCode / 100 == 2
+
+    (response as! NSHTTPURLResponse).statusCode / 100 == 2
 
 
 For turning 'data' into a Dictionary (JSON):
-<!-- language: swift -->
-NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &errors) as! NSDictionary
 
-// or
-
-NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: nil) as! NSDictionary
+    NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &errors) as! NSDictionary
+    // or
+    NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: nil) as! NSDictionary
 
 
 For readability of the data
-<!-- language: swift -->
-println(NSString(data: data!, encoding: NSUTF8StringEncoding))
+
+    println(NSString(data: data!, encoding: NSUTF8StringEncoding))
 
 *Usability*: Method calls for RingOut or SMS (anything that you dont need information back from)
 can be directly called without setting the 'feedback' to a variable.
