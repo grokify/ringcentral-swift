@@ -83,10 +83,12 @@ You will now be able to use the PubNub SDK written in Objective-C.
 The RingCentral SDK is initiated in the following ways.
 
 **Sandbox:**
-    var rcsdk = SDK(appKey: app_key, appSecret: app_secret, server: SDK.RC_SERVER_SANDBOX)
+<!-- language: swift -->
+var rcsdk = SDK(appKey: app_key, appSecret: app_secret, server: SDK.RC_SERVER_SANDBOX)
 
 **Production:**
-    var rcsdk = SDK(appKey: app_key, appSecret: app_secret, server: SDK.RC_SERVER_PRODUCTION)
+<!-- language: swift -->
+var rcsdk = SDK(appKey: app_key, appSecret: app_secret, server: SDK.RC_SERVER_PRODUCTION)
 
 The 'app_key' and 'app_secret' should be read from a configuration file.
 
@@ -97,13 +99,19 @@ will be used as the 'server' parameter.
 # Authorization
 
 To authorize the platform, extract the 'Platform' object:
-    var platform = rcsdk.getPlatform()
+
+<!-- language: swift -->
+var platform = rcsdk.getPlatform()
+
 
 Once the platform is extracted, call:
-    platform.authorize(username, password: password)
+
+<!-- language: swift -->
+platform.authorize(username, password: password)
 
 or (to authorize with extension):
-    platform.authorize(username, ext: ext, password: password)
+<!-- language: swift -->
+platform.authorize(username, ext: ext, password: password)
 
 *Caution*: If no extension is specified, platform automitically refers extension 101 (default).
 ***
@@ -116,40 +124,45 @@ A parsing class will be provided to use at your disposal, however the functional
 what it returns is limited (based on what developers will likely need most).
 
 **Most method calls will follow this behavior:**
-    apiCall([
-        "method": "POST",
-        "url": "/restapi/v1.0/account/~/extension/~/ringout",
-        "body": ["to": ["phoneNumber": "14088861168"],
-                 "from": ["phoneNumber": "14088861168"],
-                 "callerId": ["phoneNumber": "13464448343"],
-                 "playPrompt": "true"]
-    ])
+<!-- language: swift -->
+apiCall([
+    "method": "POST",
+    "url": "/restapi/v1.0/account/~/extension/~/ringout",
+    "body": ["to": ["phoneNumber": "14088861168"],
+             "from": ["phoneNumber": "14088861168"],
+             "callerId": ["phoneNumber": "13464448343"],
+             "playPrompt": "true"]
+])
 
 Get rid of the last section of curly braces if you do not need a callback.
 
 Rule of thumb: Always check if 'error' is nil
-    {(data, response, error) in
-        if (error) {
-            // do something for error
-        } else {
-            // continue with code
-        }
-    }
+<!-- language: swift -->
+{(data, response, error) in
+if (error) {
+// do something for error
+} else {
+// continue with code
+}
+}
 
 For simple checking of a successful status code:
-    (response as! NSHTTPURLResponse).statusCode / 100 == 2
+<!-- language: swift -->
+(response as! NSHTTPURLResponse).statusCode / 100 == 2
 
 
 For turning 'data' into a Dictionary (JSON):
-    NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &errors) as! NSDictionary
+<!-- language: swift -->
+NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &errors) as! NSDictionary
 
-    // or
+// or
 
-    NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: nil) as! NSDictionary
+NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: nil) as! NSDictionary
 
 
 For readability of the data
-    println(NSString(data: data!, encoding: NSUTF8StringEncoding))
+<!-- language: swift -->
+println(NSString(data: data!, encoding: NSUTF8StringEncoding))
 
 *Usability*: Method calls for RingOut or SMS (anything that you dont need information back from)
 can be directly called without setting the 'feedback' to a variable.
@@ -160,27 +173,31 @@ RingOut follows a two-legged style telecommunication protocol.
 
 The following method call is used to send a Ring Out.                           
 If successful it will return true, if not it will return false.
-    platform.postRingOut(from: "12345678912", to: "12345678912") // true
+<!-- language: swift -->
+platform.postRingOut(from: "12345678912", to: "12345678912") // true
 
 
 **Additional Features**:
 
 The following method call is used to obtain the status of a Ring Out.           
-Returns the generic (data, response, error) return type specified above.
-    platform.getRingOut(ringId: "12345678912", to: "12345678912")
+Returns the generic (data, response, error) return type specified above.        
+<!-- language: swift -->
+platform.getRingOut(ringId: "12345678912", to: "12345678912")
 
 
 The following method call is used to delete a ring out object.
 Returns true if successful, false if not.
 The parameter given is the "ringId" of the Ring Out object.
-    platform.deleteRingOut("123") // true
+<!-- language: swift -->
+platform.deleteRingOut("123") // true
 
 
 # Sending SMS
 
 The follow method call is used to send a SMS.
 If successful it will return true, false if not.
-    platform.postSms("hi i'm min", to: "12345678912") // true
+<!-- language: swift -->
+platform.postSms("hi i'm min", to: "12345678912") // true
 
 
 **Additional Features**:
@@ -188,7 +205,8 @@ If successful it will return true, false if not.
 The following call is used to delete a message object that was sent.
 (Does not "UNSEND" the text message, simply removes from database.)
 A boolean is returned to indicate success or failure.
-    platform.deleteMessage("123")
+<!-- language: swift -->
+platform.deleteMessage("123")
 
 ***
 
