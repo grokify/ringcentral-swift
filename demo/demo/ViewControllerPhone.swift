@@ -85,7 +85,9 @@ class ViewControllerPhone: UIViewController {
         var secondTab = self.tabBarController?.viewControllers![1] as! ViewControllerLog
         secondTab.platform = self.platform
         
-        platform?.testSubCall()
+        var subscription = Subscription(platform: platform)
+        subscription.register()
+        
         platform.subscription!.setMethod({
             (arg) in
             if let check = (self.stringToDict(arg) as? NSDictionary) {

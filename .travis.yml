@@ -1,6 +1,13 @@
 language: objective-c
 
-script: 
-- xctool clean build -project demo/demo.xcworkspace -scheme demo/demoTests
-- xctool test -project demo/demo.xcworkspace -scheme demo/demoTests
+branches:
+ only:
+ - master
 
+xcode_project: demo/demo.xcworkspace
+xcode_scheme: demoTests
+osx_image: xcode6.4
+xcode_sdk: iphonesimulator
+
+script:
+- xcodebuild clean build test -workspace demo/demo.xcworkspace -scheme demoTests -sdk iphonesimulator

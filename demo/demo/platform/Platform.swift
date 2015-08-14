@@ -226,79 +226,7 @@ class Platform {
 
     }
     
-    // ringout
-    func testApiCall() {
-        apiCall([
-            "method": "POST",
-            "url": "/restapi/v1.0/account/~/extension/~/ringout",
-            "body": ["to": ["phoneNumber": "14088861168"],
-                "from": ["phoneNumber": "14088861168"],
-                "callerId": ["phoneNumber": "13464448343"],
-                "playPrompt": "true"]
-            ])
-        sleep(5)
-
-    }
     
-    // fax
-    func testApiCall2() {
-        apiCall([
-            "method": "POST",
-            "url": "/restapi/v1.0/account/~/extension/~/fax",
-            "body": "--Boundary_1_14413901_1361871080888\n" +
-                "Content-Type: application/json\n" +
-                "\n" +
-                "{\n" +
-                "  \"to\":[{\"phoneNumber\":\"13464448343\"}],\n" +
-                "  \"faxResolution\":\"High\",\n" +
-                "  \"sendTime\":\"2013-02-26T09:31:20.882Z\"\n" +
-                "}\n" +
-                "\n" +
-                "--Boundary_1_14413901_1361871080888\n" +
-                "Content-Type: text/plain\n" +
-                "\n" +
-                "Hello, World!\n" +
-                "\n" +
-                "--Boundary_1_14413901_1361871080888--",
-            "headers": ["Content-Type": "multipart/mixed;boundary=Boundary_1_14413901_1361871080888"]
-            ]) {
-                (data, response, error) in
-                println(response)
-                println(error)
-                println(NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: nil) as! NSDictionary)
-        }
-        sleep(5)
-    }
-    
-    // subscription
-    func testApiCall3() {
-        apiCall([
-            "method": "POST",
-            "url": "/restapi/v1.0/subscription",
-            "body": [
-                "eventFilters": [
-                    "/restapi/v1.0/account/~/extension/~/presence",
-                    "/restapi/v1.0/account/~/extension/~/message-store"
-                ],
-                "deliveryMode": [
-                    "transportType": "PubNub", 
-                    "encryption": "false" 
-                ]
-            ]
-        ]) {
-            (data, response, error) in
-            println(response)
-            println(error)
-            println(NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: nil) as! NSDictionary)
-        }
-        sleep(5)
-    }
-    
-    func testSubCall() {
-        self.subscription = Subscription(platform: self)
-        subscription!.register()
-        
-    }
 
     
 }

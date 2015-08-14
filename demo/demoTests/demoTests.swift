@@ -25,19 +25,14 @@ class demoTests: XCTestCase {
         sleep(10)
     }
     
-    func testAA_subscription() {
-        platform.testSubCall()
-        sleep(10)
-    }
-    
     func testA_Sdk() {
-        XCTAssertEqual(rcsdk.serverVersion, "7.2.0.1787")
-        XCTAssertEqual(rcsdk.versionString, "1.0.18")
-        XCTAssertEqual(rcsdk.server, "https://platform.devtest.ringcentral.com/restapi")
+        XCTAssertEqual(rcsdk.serverVersion, "7.3.0.1824")
+        XCTAssertEqual(rcsdk.versionString, "1.0.19")
+        XCTAssertEqual(rcsdk.server, "https://platform.devtest.ringcentral.com")
     }
     
     func testB_Platform() {
-        XCTAssertEqual(platform.server, "https://platform.devtest.ringcentral.com/restapi")
+        XCTAssertEqual(platform.server, "https://platform.devtest.ringcentral.com")
         XCTAssertEqual(platform.appKey, "eI3RKs1oSBSY2kReFnviIw")
         XCTAssertEqual(platform.appSecret, "Gv9DgBZVTkaQNbbyEx-SQQBsnUKECmT5GrmGXbHTmpUQ")
     }
@@ -50,6 +45,78 @@ class demoTests: XCTestCase {
         XCTAssertNotEqual(auth!.refresh_token_expires_in, 0)
         XCTAssertNotEqual(auth!.refresh_token_expire_time, 0)
         XCTAssertEqual(auth!.ext, "101")
+    }
+    
+    // ringout
+    func testApiCall() {
+        platform.apiCall([
+            "method": "POST",
+            "url": "/restapi/v1.0/account/~/extension/~/ringout",
+            "body": ["to": ["phoneNumber": "14088861168"],
+                "from": ["phoneNumber": "14088861168"],
+                "callerId": ["phoneNumber": "13464448343"],
+                "playPrompt": "true"]
+            ])
+        sleep(5)
+        
+    }
+    
+    // fax
+    func testApiCall2() {
+        platform.apiCall([
+            "method": "POST",
+            "url": "/restapi/v1.0/account/~/extension/~/fax",
+            "body": "--Boundary_1_14413901_1361871080888\n" +
+                "Content-Type: application/json\n" +
+                "\n" +
+                "{\n" +
+                "  \"to\":[{\"phoneNumber\":\"13464448343\"}],\n" +
+                "  \"faxResolution\":\"High\",\n" +
+                "  \"sendTime\":\"2013-02-26T09:31:20.882Z\"\n" +
+                "}\n" +
+                "\n" +
+                "--Boundary_1_14413901_1361871080888\n" +
+                "Content-Type: text/plain\n" +
+                "\n" +
+                "Hello, World!\n" +
+                "\n" +
+            "--Boundary_1_14413901_1361871080888--",
+            "headers": ["Content-Type": "multipart/mixed;boundary=Boundary_1_14413901_1361871080888"]
+            ]) {
+                (data, response, error) in
+                println(response)
+                println(error)
+        }
+        sleep(5)
+    }
+    
+    // subscription
+    func testApiCall3() {
+        platform.apiCall([
+            "method": "POST",
+            "url": "/restapi/v1.0/subscription",
+            "body": [
+                "eventFilters": [
+                    "/restapi/v1.0/account/~/extension/~/presence",
+                    "/restapi/v1.0/account/~/extension/~/message-store"
+                ],
+                "deliveryMode": [
+                    "transportType": "PubNub",
+                    "encryption": "false"
+                ]
+            ]
+            ]) {
+                (data, response, error) in
+                println(response)
+                println(error)
+        }
+        sleep(5)
+    }
+    
+    func testSubCall() {
+        var subscription = Subscription(platform: platform)
+        subscription.register()
+        
     }
     
 //    func testD_RingOut() {
