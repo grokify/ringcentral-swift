@@ -1,5 +1,4 @@
 # RingCentral Swift SDK
-=====================
 
 [![Build Status](https://travis-ci.org/ringcentral/ringcentral-swift.svg?branch=master)](https://travis-ci.org/ringcentral/ringcentral-swift)
 
