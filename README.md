@@ -32,7 +32,7 @@ Navigate to your project directory (the one with the 'workspace' file, e.g. `.xc
 Type:
 
     $ git clone https://github.com/ringcentral/ringcentral-swift.git
-    $ cd lib
+    $ cd ringcentral-swift
     $ chmod 700 setup.sh
     $ ./setup.sh
     $ cd ..
