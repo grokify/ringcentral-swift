@@ -27,15 +27,15 @@ however it is not guaranteed to be exactly the same.
 
 # Setting Up
 
-Navigate to your project directory (the one with the 'workspace' file).
+Navigate to your project directory (the one with the 'workspace' file, e.g. `.xcodeproj` extension).
 
 Type:
 
-    git clone https://github.com/ringcentral/ringcentral-swift.git
-    cd lib
-    chmod 700 setup.sh
-    ./setup.sh
-    cd ..
+    $ git clone https://github.com/ringcentral/ringcentral-swift.git
+    $ cd lib
+    $ chmod 700 setup.sh
+    $ ./setup.sh
+    $ cd ..
 
 The previous commands will automatically move all the appropriate files into your project directory.
 
