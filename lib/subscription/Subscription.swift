@@ -1,5 +1,4 @@
 import Foundation
-import PubNub
 
 class Subscription: NSObject, PNObjectEventListener {
     

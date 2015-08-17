@@ -27,12 +27,20 @@ however it is not guaranteed to be exactly the same.
 
 # Setting Up
 
-For now, drag the "lib" folder into your directory.
+Navigate to your project directory (the one with the 'workspace' file).
+
+Type:
+
+    git clone https://github.com/ringcentral/ringcentral-swift.git
+    cd lib
+    chmod 700 setup.sh
+    ./setup.sh
+    cd ..
+
+The previous commands will automatically move all the appropriate files into your project directory.
+
 A dependency manager using CocoaPods will be implemented in future.
 
-**FOR THE MOST PART, EVERYTHING SHOULD BE SET UP CORRECTLY.**
-
-**Some of these steps are only for if the project becomes corrupted.**
 
 To set up CocoaPods:
 
@@ -58,7 +66,7 @@ Add the following code into the newly created Podfile if in 'iOS' platform:
     end
 
 If you are in the OSx platform:
-
+    
     platform :osx, '10.0'
     target 'YourProjectName' do
     source 'https://github.com/CocoaPods/Specs.git'
