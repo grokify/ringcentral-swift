@@ -39,8 +39,7 @@ Type:
 
 The previous commands will automatically move all the appropriate files into your project directory.
 
-A dependency manager using CocoaPods will be implemented in future.
-
+Install CocoaPods to retrieve other dependencies.
 
 To set up CocoaPods:
 
@@ -48,24 +47,24 @@ To set up CocoaPods:
 
 The same line is used to update cocoapods accordingly.
 
-Set up a new Xcode project, and navigate to it within Terminal.
-Within Terminal, type:
+Ensure your current working directory is the project directory and execute the following CocoaPod commands:
 
     $ pod init
     $ open -a Xcode Podfile
 
-That will set up a Podfile and open it.
-Add the following code into the newly created Podfile if in 'iOS' platform:
+That will set up a Podfile and open it for editing.
+
+If you are in the iOS platform, replace the file contents with the following, ensuring you replace `YourProjectName` and `YourProjectNameTests` appropriately. The target file must have the literal string `Tests` appended to `YourProjectName`.
 
     platform :ios, '8.0'
-    target 'YourProject' do
+    target 'YourProjectName' do
     source 'https://github.com/CocoaPods/Specs.git'
     pod 'PubNub', '~>4.0'
     end
-    target 'YourProjectTests' do
+    target 'YourProjectNameTests' do
     end
 
-If you are in the OSx platform:
+If you are in the OSx platform, replace the file contents with the following, ensuring you replace `YourProjectName` and `YourProjectTest` appropriately:
     
     platform :osx, '10.0'
     target 'YourProjectName' do
@@ -73,7 +72,9 @@ If you are in the OSx platform:
     pod 'PubNub', '~>4.0'
     end
 
-Go back into terminal (navigated to the project folder with 'Podfile') and type the following:
+Save and close the Podfile.
+
+Go back into terminal and type the following from within the project directory:
 
     $ pod update
     $ pod install
