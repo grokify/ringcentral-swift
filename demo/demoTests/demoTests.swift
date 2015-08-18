@@ -26,8 +26,8 @@ class demoTests: XCTestCase {
     }
     
     func testA_Sdk() {
-        XCTAssertEqual(rcsdk.serverVersion, "7.3.0.1824")
-        XCTAssertEqual(rcsdk.versionString, "1.0.19")
+        XCTAssertNotEqual(rcsdk.serverVersion, "")
+        XCTAssertNotEqual(rcsdk.versionString, "")
         XCTAssertEqual(rcsdk.server, "https://platform.devtest.ringcentral.com")
     }
     
