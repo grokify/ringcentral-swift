@@ -2,14 +2,15 @@ import Foundation
 
 class Transaction {
     
-    internal var jsonAsArray = []
+    internal var jsonAsArray = [String: AnyObject]()
     internal var jsonAsObject = AnyObject?()
     internal var multipartTransactions = AnyObject?()
-    internal var response: NSURLResponse?
     internal var request: NSMutableURLRequest?
-    internal var data: NSData?
-    internal var error: NSError?
     internal var raw = AnyObject?()
+    
+    private var data: NSData?
+    private var response: NSURLResponse?
+    private var error: NSError?
     
     init(request: NSMutableURLRequest, status: Int = 200) {
         self.request = request
@@ -27,12 +28,24 @@ class Transaction {
         return raw
     }
     
-    func getJson() {
-        
+    func getJson() -> [String: AnyObject] {
+        return jsonAsArray
     }
     
-    func getMultipart() {
-        
+    func setData(data: NSData?) {
+        self.data = data
+    }
+    
+    func setResponse(response: NSURLResponse?) {
+        self.response = response
+    }
+    
+    func setError(error: NSError?) {
+        self.error = error
+    }
+    
+    func getMultipart() -> AnyObject? {
+        return self.multipartTransactions
     }
     
     func isOK() -> Bool {
@@ -51,8 +64,8 @@ class Transaction {
         return response
     }
     
-    func isContentType() {
-        
+    func isContentType(type: String) -> Bool {
+        return false
     }
     
     func getContentType() {

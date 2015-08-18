@@ -22,28 +22,32 @@ class Client {
         return self
     }
     
-    func send(request: NSMutableURLRequest) {
+    func send(request: NSMutableURLRequest, completion: (transaction: Transaction) -> Void) {
         if self.useMock {
-            sendMock(request)
+            sendMock(request) {
+                (t) in
+                completion(transaction: t)
+            }
         } else {
-            sendReal(request)
+            sendReal(request) {
+                (t) in
+                completion(transaction: t)
+            }
         }
     }
     
-    func sendReal(request: NSMutableURLRequest) {
-        var task: NSURLSessionDataTask = NSURLSession.sharedSession().dataTaskWithRequest(request)
-        task.resume()
-    }
-    
-    func sendReal(request: NSMutableURLRequest, completion: (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void) {
+    func sendReal(request: NSMutableURLRequest, completion: (transaction: Transaction) -> Void) {
+        var trans = Transaction(request: request)
         var task: NSURLSessionDataTask = NSURLSession.sharedSession().dataTaskWithRequest(request) {
-            (d, r, e) in
-            completion(data: d, response: r, error: e)
+            (data, response, error) in
+            trans.setData(data)
+            trans.setResponse(response)
+            trans.setError(error)
         }
         task.resume()
     }
     
-    func sendMock(request: NSMutableURLRequest) {
+    func sendMock(request: NSMutableURLRequest, completion: (transaction: Transaction) -> Void) {
         
     }
     
