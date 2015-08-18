@@ -124,8 +124,6 @@ class Request: Headers {
         }
     }
     
-
-    
     func jsonToString(json: [String: AnyObject]) -> String {
         var result = "{"
         var delimiter = ""
