@@ -145,6 +145,7 @@ class Subscription: NSObject, PNObjectEventListener {
                 
                 self.subscription!.deliveryMode = del
                 self.subscribeAtPubnub()
+                self.platform.subscription = self
         }
         
     }
