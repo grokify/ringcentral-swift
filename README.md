@@ -39,6 +39,8 @@ Type:
 
 The previous commands will automatically move all the appropriate files into your project directory.
 
+Open up Xcode to your project. File -> Add Files... -> add http, core, subscription, and platform.
+
 Install CocoaPods to retrieve other dependencies.
 
 To set up CocoaPods:

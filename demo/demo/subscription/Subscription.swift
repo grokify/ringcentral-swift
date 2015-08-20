@@ -11,7 +11,6 @@ class Subscription: NSObject, PNObjectEventListener {
     
     init(platform: Platform) {
         self.platform = platform
-        
     }
     
     struct IDeliveryMode {
@@ -58,6 +57,7 @@ class Subscription: NSObject, PNObjectEventListener {
         if (isSubscribed()) {
             return renew(options)
         } else {
+            self.platform.subscription = self
             return subscribe(options)
         }
     }

@@ -53,31 +53,12 @@ class ViewControllerLogin: UIViewController {
     }
     
     @IBAction func setValues() {
-        userBox.text = "13464448343"
-        passBox.text = "P@ssw0rd"
-        keyBox.text = "eI3RKs1oSBSY2kReFnviIw"
-        secretBox.text = "Gv9DgBZVTkaQNbbyEx-SQQBsnUKECmT5GrmGXbHTmpUQ"
+        // change credentials here
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        
-        
-        // code below is made for NSLog stuff, writes out to text
-//        NSLog("view did load")
-//        let yourString = "String contents go here"
-//        let f = NSFileManager()
-//        if let u = f.URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true, error: nil){
-//            println(u)
-//            let fileUrl = u.URLByAppendingPathComponent("FileName.txt")
-//            if yourString.writeToURL(fileUrl, atomically: true, encoding: NSUTF8StringEncoding, error: nil){
-//                println("Successfully wrote the file to \(fileUrl)")
-//            } else {
-//                println("Failed")
-//            }
-//        }
         
     }
     
@@ -95,13 +76,7 @@ class ViewControllerLogin: UIViewController {
     
     // Sets variables in another ViewController from the current one
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-//        if (segue.identifier == "loginToMain") {
-//            var svc = segue!.destinationViewController as! ViewControllerPhone;
-//            svc.toPass = textField.text
-//            
-//        }
-        
-        
+
         if segue.identifier == "loginToMain" {
             var tabBarC : UITabBarController = segue.destinationViewController as! UITabBarController
             var desView: ViewControllerPhone = tabBarC.viewControllers?.first as! ViewControllerPhone

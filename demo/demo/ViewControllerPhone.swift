@@ -80,7 +80,7 @@ class ViewControllerPhone: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        fromNumber.text = "14088861168"
+        fromNumber.text = ""
         
         var secondTab = self.tabBarController?.viewControllers![1] as! ViewControllerLog
         secondTab.platform = self.platform
