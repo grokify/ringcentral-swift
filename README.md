@@ -60,7 +60,7 @@ If you are in the iOS platform, replace the file contents with the following, en
 
     platform :ios, '8.0'
     target 'YourProjectName' do
-    source 'https://github.com/CocoaPods/Specs.git'
+    source 'https://github.com/CocoaPods/Specs'
     pod 'PubNub', '~>4.0'
     end
     target 'YourProjectNameTests' do
@@ -70,7 +70,7 @@ If you are in the OSx platform, replace the file contents with the following, en
     
     platform :osx, '10.0'
     target 'YourProjectName' do
-    source 'https://github.com/CocoaPods/Specs.git'
+    source 'https://github.com/CocoaPods/Specs'
     pod 'PubNub', '~>4.0'
     end
 
