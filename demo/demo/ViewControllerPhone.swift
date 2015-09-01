@@ -35,9 +35,9 @@ class ViewControllerPhone: UIViewController {
         platform.apiCall([
             "method": "POST",
             "url": "/restapi/v1.0/account/~/extension/~/ringout",
-            "body": ["to": ["phoneNumber": "14088861168"],
-                "from": ["phoneNumber": "14088861168"],
-                "callerId": ["phoneNumber": "13464448343"],
+            "body": ["to": ["phoneNumber": number.text!],
+                "from": ["phoneNumber": fromNumber.text!],
+                "callerId": ["phoneNumber": platform.auth!.username],
                 "playPrompt": "true"]
             ])
 //        println(platform.getCallLog(true))
