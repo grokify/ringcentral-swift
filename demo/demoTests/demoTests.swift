@@ -47,20 +47,6 @@ class demoTests: XCTestCase {
         XCTAssertEqual(auth!.ext, "101")
     }
     
-    // ringout
-    func testApiCall() {
-        platform.apiCall([
-            "method": "POST",
-            "url": "/restapi/v1.0/account/~/extension/~/ringout",
-            "body": ["to": ["phoneNumber": "14088861168"],
-                "from": ["phoneNumber": "14088861168"],
-                "callerId": ["phoneNumber": "13464448343"],
-                "playPrompt": "true"]
-            ])
-        sleep(5)
-        
-    }
-    
     // fax
     func testApiCall2() {
         platform.apiCall([
