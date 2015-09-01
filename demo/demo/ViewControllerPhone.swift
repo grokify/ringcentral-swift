@@ -59,7 +59,7 @@ class ViewControllerPhone: UIViewController {
             var bodyString = "{" +
                 "\"to\": [{\"phoneNumber\": " +
                 "\"" + toNumber + "\"}]," +
-                "\"from\": {\"phoneNumber\": \"" + fromNumber.text! +
+                "\"from\": {\"phoneNumber\": \"" + platform.auth!.username +
                 "\"}," + "\"text\": \"" + message.text! + "\"" + "}"
             
             platform.apiCall([

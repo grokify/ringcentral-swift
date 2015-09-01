@@ -287,6 +287,25 @@ class Platform {
         subscription!.register()
         
     }
+    
+    func testSMS() {
+        apiCall([
+            "method": "POST",
+            "url": "/restapi/v1.0/account/~/extension/~/sms",
+            "body": "{" +
+            "\"to\": [{\"phoneNumber\": " +
+            "\"" + "14089406669" + "\"}]," +
+            "\"from\": {\"phoneNumber\": \"" + "13464448343" +
+            "\"}," + "\"text\": \"" + "tetestingxt" + "\"" + "}"
+            ]) {
+                (data, response, error) in
+                println(response)
+                println(error)
+                println(NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: nil) as! NSDictionary)
+        }
+        sleep(5)
+    }
+
 
     
 }

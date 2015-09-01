@@ -75,11 +75,19 @@ class Request: Headers {
     
     func send() {
         var bodyString: String
-        if isJson() {
-            bodyString = jsonToString(body as! [String: AnyObject])
-        } else {
+        
+        if let check = body as? String {
             bodyString = body as! String
+        } else {
+            bodyString = jsonToString(body as! [String: AnyObject])
         }
+        
+//        
+//        if isJson() {
+//            bodyString = jsonToString(body as! [String: AnyObject])
+//        } else {
+//            bodyString = body as! String
+//        }
 
         
         if let nsurl = NSURL(string: url + self.query) {
@@ -97,16 +105,23 @@ class Request: Headers {
     
     func send(completion: (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void) {
         var bodyString: String
-        if isJson() {
-            if body is NSDictionary {
-                bodyString = jsonToString(body as! [String: AnyObject])
-            } else {
-                bodyString = body as! String
-            }
-            
+        
+        if let check = body as? String {
+            bodyString = body as! String
         } else {
-            bodyString = self.body as! NSString as String
+            bodyString = jsonToString(body as! [String: AnyObject])
         }
+        
+//        if isJson() {
+//            if body is NSDictionary {
+//                bodyString = jsonToString(body as! [String: AnyObject])
+//            } else {
+//                bodyString = body as! String
+//            }
+//            
+//        } else {
+//            bodyString = self.body as! NSString as String
+//        }
         
         if let nsurl = NSURL(string: url + self.query) {
             let request = NSMutableURLRequest(URL: nsurl)
