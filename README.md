@@ -62,6 +62,7 @@ If you are in the iOS platform, replace the file contents with the following, en
     target 'YourProjectName' do
     source 'https://github.com/CocoaPods/Specs'
     pod 'PubNub', '~>4.0'
+    use_frameworks!
     end
     target 'YourProjectNameTests' do
     end
@@ -71,6 +72,7 @@ If you are in the OSx platform, replace the file contents with the following, en
     platform :osx, '10.0'
     target 'YourProjectName' do
     source 'https://github.com/CocoaPods/Specs'
+    use_frameworks!
     pod 'PubNub', '~>4.0'
     end
 
