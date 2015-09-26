@@ -1,13 +1,3 @@
-//
-//  ViewController.swift
-//  demo
-//
-//  Created by Vincent Tseng on 6/25/15.
-//  Copyright (c) 2015 Vincent Tseng. All rights reserved.
-//
-
-// SDK Demo requires config file for app_key and app_secret and server
-
 import UIKit
 
 class ViewControllerLogin: UIViewController {
@@ -52,13 +42,11 @@ class ViewControllerLogin: UIViewController {
         sender.layer.addAnimation(anim, forKey: nil)
     }
     
-    @IBAction func setValues() {
-        // change credentials here
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        let backItem = UIBarButtonItem(title: "Custom Text HERE", style: .Bordered, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backItem
         
     }
     

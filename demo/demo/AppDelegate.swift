@@ -1,10 +1,6 @@
-//
-//  AppDelegate.swift
-//  demo
-//
-//  Created by Vincent Tseng on 6/25/15.
-//  Copyright (c) 2015 Vincent Tseng. All rights reserved.
-//
+
+//  Copyright (c) 2015 RingCentral. All rights reserved.
+
 
 import UIKit
 

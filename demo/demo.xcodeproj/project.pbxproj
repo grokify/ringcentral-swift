@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1B431523931DA1F26A3BA1C9 /* Pods_demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 898BF93C30BB0312F7E6DC82 /* Pods_demo.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		A65FF15D1BB2696900DFCE61 /* ViewControllerHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65FF15C1BB2696900DFCE61 /* ViewControllerHome.swift */; };
+		A65FF15E1BB2696900DFCE61 /* ViewControllerHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65FF15C1BB2696900DFCE61 /* ViewControllerHome.swift */; };
 		E004D4EB1B43236000365EA0 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E004D4EA1B43236000365EA0 /* CustomCell.swift */; };
 		E010145D1B7A782B004C346F /* SDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01014351B7A782B004C346F /* SDK.swift */; };
 		E010145E1B7A782B004C346F /* Headers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01014371B7A782B004C346F /* Headers.swift */; };
@@ -107,6 +109,7 @@
 		67B064E699A9AA8AFFF976F9 /* Pods-demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-demo/Pods-demo.debug.xcconfig"; sourceTree = "<group>"; };
 		898BF93C30BB0312F7E6DC82 /* Pods_demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E25020075F0AAD77DC8C00F /* Pods-demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-demo/Pods-demo.release.xcconfig"; sourceTree = "<group>"; };
+		A65FF15C1BB2696900DFCE61 /* ViewControllerHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerHome.swift; sourceTree = "<group>"; };
 		E004D4EA1B43236000365EA0 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		E01014351B7A782B004C346F /* SDK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDK.swift; sourceTree = "<group>"; };
 		E01014371B7A782B004C346F /* Headers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Headers.swift; sourceTree = "<group>"; };
@@ -306,6 +309,7 @@
 				E0B6B23C1B3CC95500C86C17 /* Main.storyboard */,
 				E0B6B2411B3CC95500C86C17 /* LaunchScreen.xib */,
 				E0B6B2361B3CC95500C86C17 /* Supporting Files */,
+				A65FF15C1BB2696900DFCE61 /* ViewControllerHome.swift */,
 			);
 			path = demo;
 			sourceTree = "<group>";
@@ -383,7 +387,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0630;
-				ORGANIZATIONNAME = "Vincent Tseng";
+				ORGANIZATIONNAME = RingCentral;
 				TargetAttributes = {
 					E0B6B2321B3CC95500C86C17 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -513,6 +517,7 @@
 				E010147D1B7A782B004C346F /* UInt64Extension.swift in Sources */,
 				E010146F1B7A782B004C346F /* IntegerConvertible.swift in Sources */,
 				E01014751B7A782B004C346F /* PKCS5.swift in Sources */,
+				A65FF15D1BB2696900DFCE61 /* ViewControllerHome.swift in Sources */,
 				E0B6B2391B3CC95500C86C17 /* AppDelegate.swift in Sources */,
 				E01014781B7A782B004C346F /* SHA1.swift in Sources */,
 				E010147A1B7A782B004C346F /* StringExtension.swift in Sources */,
@@ -559,6 +564,7 @@
 				E01014921B7A7F80004C346F /* HashBase.swift in Sources */,
 				E010149E1B7A7F80004C346F /* SHA2.swift in Sources */,
 				E01014831B7A7F70004C346F /* Response.swift in Sources */,
+				A65FF15E1BB2696900DFCE61 /* ViewControllerHome.swift in Sources */,
 				E010148C1B7A7F80004C346F /* ChaCha20.swift in Sources */,
 				E01014981B7A7F80004C346F /* Operators.swift in Sources */,
 				E01014961B7A7F80004C346F /* MD5.swift in Sources */,

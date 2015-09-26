@@ -12,6 +12,8 @@
 	<dict>
 		<key>3BCEC8D72C213B14269EB69742D0060D98C50412</key>
 		<string>https://github.com/mintseng/ringcentral-swift.git</string>
+		<key>4FA7B03F3A9D8691348F563677FFB611AF0770E0</key>
+		<string>https://github.com/anilkumarbp/RC-Swift.git</string>
 		<key>F9563B8574CDF56EFCC7A12C5F896830C6D90EB5</key>
 		<string>https://github.com/ringcentral/ringcentral-swift.git</string>
 	</dict>
@@ -21,15 +23,17 @@
 	<dict>
 		<key>3BCEC8D72C213B14269EB69742D0060D98C50412</key>
 		<string>../../../ringcentral</string>
-		<key>F9563B8574CDF56EFCC7A12C5F896830C6D90EB5</key>
+		<key>4FA7B03F3A9D8691348F563677FFB611AF0770E0</key>
 		<string>../..</string>
+		<key>F9563B8574CDF56EFCC7A12C5F896830C6D90EB5</key>
+		<string>../../../ringcentral-swift</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/ringcentral/ringcentral-swift.git</string>
+	<string>https://github.com/anilkumarbp/RC-Swift.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>F9563B8574CDF56EFCC7A12C5F896830C6D90EB5</string>
+	<string>4FA7B03F3A9D8691348F563677FFB611AF0770E0</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -47,6 +51,14 @@
 			<string>F9563B8574CDF56EFCC7A12C5F896830C6D90EB5</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ringcentral-swift</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4FA7B03F3A9D8691348F563677FFB611AF0770E0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ringcentral-swift-hackathon-demoApp</string>
 		</dict>
 	</array>
 </dict>

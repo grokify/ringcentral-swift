@@ -39,7 +39,7 @@ Type:
 
 The previous commands will automatically move all the appropriate files into your project directory.
 
-Open up Xcode to your project. File -> Add Files... -> add http, core, subscription, and platform.
+Open up Xcode to your project. File -> Add Files... -> add http, core, subscription, and platform.(also you drag and drop the above files into the workspace.)
 
 Install CocoaPods to retrieve other dependencies.
 
@@ -213,6 +213,13 @@ An example in the demo is provided that changes the status color accordingly.
 ***
 
 # SDK Demo 1
+
+Home page:
+    The Home Page for the Demo App.
+    Use the Authenticate button to use the login page. You could access our Documentation using Documentation button
+    To start testing our API's click on API Explorer.
+
+![Alt text](/img/Home.png?raw=true "Optional Title")
 
 Login page:
     Insert app_key, app_secret, username, password in order to log in.

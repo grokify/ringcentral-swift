@@ -18,7 +18,7 @@ class Subscription: NSObject, PNObjectEventListener {
         var encryption: Bool = false
         var address: String = ""
         var subscriberKey: String = ""
-        var secretKey: String = ""
+        var secretKey: String?
         var encryptionKey: String = ""
     }
     
@@ -140,8 +140,9 @@ class Subscription: NSObject, PNObjectEventListener {
                 del.encryption =        dictDelivery["encryption"] as! Bool
                 del.address =           dictDelivery["address"] as! String
                 del.subscriberKey =     dictDelivery["subscriberKey"] as! String
-                del.secretKey =         dictDelivery["secretKey"] as! String
+                del.secretKey =         dictDelivery["secretKey"] as? String
                 del.encryptionKey =     dictDelivery["encryptionKey"] as! String
+                
                 
                 self.subscription!.deliveryMode = del
                 self.subscribeAtPubnub()

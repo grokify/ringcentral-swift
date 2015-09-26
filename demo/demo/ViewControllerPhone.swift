@@ -1,11 +1,3 @@
-//
-//  ViewController2.swift
-//  demo
-//
-//  Created by Vincent Tseng on 6/26/15.
-//  Copyright (c) 2015 Vincent Tseng. All rights reserved.
-//
-
 import Foundation
 
 
@@ -39,11 +31,7 @@ class ViewControllerPhone: UIViewController {
                 "from": ["phoneNumber": fromNumber.text!],
                 "callerId": ["phoneNumber": platform.auth!.username],
                 "playPrompt": "true"]
-            ])
-//        println(platform.getCallLog(true))
-//        var secondTab = self.tabBarController?.viewControllers![1] as! ViewControllerLog
-//        secondTab.label.text = secondTab.label.text! + "hi"
-        
+            ])        
     }
     
     func refreshHistory() {
