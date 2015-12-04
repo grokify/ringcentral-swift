@@ -7,6 +7,7 @@ Sample rcsdk swift pod
 DESC
 spec.homepage = "https://github.com/anilkumarbp/swift-sdk-new"
 spec.platform = :osx, "10.10"
+spec.platform = :ios, "8.0"
 spec.license = "MIT"
 spec.authors = { "Anil Kumar" => "anil.akbp@gmail.com" }
 spec.source = { :git => "https://github.com/anilkumarbp/RingCentralSwift.git", :tag => "0.0.1" }
