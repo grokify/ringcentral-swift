@@ -295,7 +295,7 @@ class Subscription: NSObject, PNObjectEventListener {
     private func base64ToByteArray(base64String: String) -> [UInt8] {
         let nsdata: NSData = NSData(base64EncodedString: base64String, options: NSDataBase64DecodingOptions(rawValue: 0))!
         var bytes = [UInt8](count: nsdata.length, repeatedValue: 0)
-        nsdata.getBytes(&bytes)
+        nsdata.getBytes(&bytes, length: nsdata.length)
         return bytes
     }
     

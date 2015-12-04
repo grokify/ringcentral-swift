@@ -12,10 +12,10 @@ import Foundation
 println("Hello, World!")
 
 
-var app_key: String = "MNJx4H4cTR-02_zPnsTJ5Q"
-var app_secret = "7CJKigzBTzOvzTDPP1-C3AARDYohOlSaCLcvgzpNZUzw"
-var username = "15856234190"
-var password = "sandman1!"
+var app_key: String = ""
+var app_secret = ""
+var username = ""
+var password = ""
 var response: ApiResponse
 
 

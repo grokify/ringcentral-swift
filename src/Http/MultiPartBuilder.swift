@@ -85,8 +85,8 @@ class MultipartBuilder {
         var headers: [String: String] = [:]
         headers["Content-type"] = "application/octet-stream; boundary=" + boundaryConstant
         
-        let fileName = self._contents["filename"]
-        let contents = self._contents["contents"]
+        let fileName: AnyObject? = self._contents["filename"]
+        let contents: AnyObject? = self._contents["contents"]
         let mimeType = "application/octet-stream"
         let fieldName = "uploadFile"
         
@@ -116,7 +116,7 @@ class MultipartBuilder {
         var delimiter = ""
         for key in json.keys {
             result += delimiter + "\"" + key + "\":"
-            var item = json[key]
+            var item: AnyObject? = json[key]
             if let check = item as? String {
                 result += "\"" + check + "\""
             } else {

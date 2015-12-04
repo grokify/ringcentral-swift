@@ -129,7 +129,7 @@ class Client {
         var delimiter = ""
         for key in json.keys {
             result += delimiter + "\"" + key + "\":"
-            var item = json[key]
+            var item: AnyObject? = json[key]
             if let check = item as? String {
                 result += "\"" + check + "\""
             } else {
@@ -207,7 +207,7 @@ class Client {
                 
                 // Format the body
             else {
-                if let json = body as AnyObject? {
+                if let json: AnyObject = body as AnyObject? {
                     println("Non-Empty Body")
                     bodyFinal = jsonToString(json as! [String : AnyObject])
                     truncatedBodyFinal = bodyFinal
