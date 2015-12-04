@@ -113,7 +113,7 @@
 		A6DADBD11C111470008D9A78 /* UInt8Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UInt8Extension.swift; sourceTree = "<group>"; };
 		A6DADBD21C111470008D9A78 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A6DADBD31C111470008D9A78 /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
-		A6DADC6A1C1251E6008D9A78 /* src-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "src-Bridging-Header.h"; sourceTree = "<group>"; };
+		A6DADC6D1C125508008D9A78 /* RingCentralSwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RingCentralSwift.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +138,7 @@
 		A6DADA9B1C110B0E008D9A78 = {
 			isa = PBXGroup;
 			children = (
+				A6DADC6D1C125508008D9A78 /* RingCentralSwift.h */,
 				A6DADBAB1C111470008D9A78 /* Core */,
 				A6DADBAD1C111470008D9A78 /* Http */,
 				A6DADBB11C111470008D9A78 /* Platform */,
@@ -147,7 +148,6 @@
 				A6DADAA51C110B0E008D9A78 /* Products */,
 				CAA3633B2C8BCAB489764C0D /* Pods */,
 				DC2A550E0F6DAA43206954C4 /* Frameworks */,
-				A6DADC6A1C1251E6008D9A78 /* src-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
