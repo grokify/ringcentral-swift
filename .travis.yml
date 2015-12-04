@@ -1,0 +1,11 @@
+language: objective-c
+
+osx_image: xcode6.4
+xcode_sdk: iphonesimulator
+
+branches:
+ only:
+ - master
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
