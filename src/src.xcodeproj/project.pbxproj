@@ -113,6 +113,7 @@
 		A6DADBD11C111470008D9A78 /* UInt8Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UInt8Extension.swift; sourceTree = "<group>"; };
 		A6DADBD21C111470008D9A78 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A6DADBD31C111470008D9A78 /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
+		A6DADC6A1C1251E6008D9A78 /* src-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "src-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +147,7 @@
 				A6DADAA51C110B0E008D9A78 /* Products */,
 				CAA3633B2C8BCAB489764C0D /* Pods */,
 				DC2A550E0F6DAA43206954C4 /* Frameworks */,
+				A6DADC6A1C1251E6008D9A78 /* src-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -508,7 +510,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0638E414121B6066E61F1176 /* Pods-src.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "src-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -516,7 +522,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7414E23C3B46765A56C25E52 /* Pods-src.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "src-Bridging-Header.h";
 			};
 			name = Release;
 		};

@@ -11,7 +11,7 @@ spec.platform = :ios, "8.0"
 spec.license = "MIT"
 spec.authors = { "Anil Kumar" => "anil.akbp@gmail.com" }
 spec.source = { :git => "https://github.com/anilkumarbp/RingCentralSwift.git", :tag => "0.0.1" }
-spec.source_files = "src/Core","src/Http","src/Platform","src/Subscription","src/Subscription/Crypto"
+spec.source_files = "src/Core","src/Http","src/Platform","src/Subscription","src/Subscription/Crypto", "src/*.{h}"
 spec.exclude_files = "Classes/Exclude"
 spec.requires_arc = true
 spec.dependency 'PubNub', '~>4.0'
