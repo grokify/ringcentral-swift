@@ -12,9 +12,9 @@ import Foundation
 public class SDK {
     
     // Set constants for SANDBOX and PRODUCTION servers.
-    static var VERSION: String = ""
-    static var RC_SERVER_PRODUCTION: String = "https://platform.ringcentral.com"
-    static var RC_SERVER_SANDBOX: String = "https://platform.devtest.ringcentral.com"
+    public static var VERSION: String = ""
+    public static var RC_SERVER_PRODUCTION: String = "https://platform.ringcentral.com"
+    public static var RC_SERVER_SANDBOX: String = "https://platform.devtest.ringcentral.com"
     
     // Platform variable, version, and current Subscriptions
     var _platform: Platform
