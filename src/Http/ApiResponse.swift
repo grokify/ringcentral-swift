@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ApiResponse {
+public class ApiResponse {
     
     // Constants
     internal var jsonAsArray = [String: AnyObject]()
@@ -32,7 +32,7 @@ class ApiResponse {
         self.dict = dict
     }
     
-    func getText() -> String {
+    public func getText() -> String {
         if let check = data {
             return check.description
         } else {
@@ -40,42 +40,42 @@ class ApiResponse {
         }
     }
     
-    func getRaw() -> Any {
+    public func getRaw() -> Any {
         return raw
     }
     
-    func getJson() -> [String: AnyObject] {
+    public func getJson() -> [String: AnyObject] {
         return jsonAsArray
     }
     
-    func getJsonAsString() -> String {
+    public func getJsonAsString() -> String {
         return jsonAsString
     }
     
-    func getMultipart() -> AnyObject? {
+    public func getMultipart() -> AnyObject? {
         return self.multipartTransactions
     }
     
-    func isOK() -> Bool {
+    public func isOK() -> Bool {
         return (self.response as! NSHTTPURLResponse).statusCode / 100 == 2
     }
     
-    func getError() -> NSError? {
+    public func getError() -> NSError? {
         return error
     }
     
-    func getData() -> NSData? {
+    public func getData() -> NSData? {
         return self.data
     }
-    func getDict() -> Dictionary<String,NSObject> {
+    public func getDict() -> Dictionary<String,NSObject> {
         return self.dict as! Dictionary<String, NSObject>
     }
     
-    func getRequest() -> NSMutableURLRequest? {
+    public func getRequest() -> NSMutableURLRequest? {
         return request
     }
     
-    func getResponse() -> NSURLResponse? {
+    public func getResponse() -> NSURLResponse? {
         return response
     }
     
@@ -87,7 +87,7 @@ class ApiResponse {
         
     }
     
-    func JSONStringify(value: AnyObject, prettyPrinted: Bool = false) -> String {
+    public func JSONStringify(value: AnyObject, prettyPrinted: Bool = false) -> String {
         var options = prettyPrinted ? NSJSONWritingOptions.PrettyPrinted : nil
         if NSJSONSerialization.isValidJSONObject(value) {
             if let data = NSJSONSerialization.dataWithJSONObject(value, options: options, error: nil) {

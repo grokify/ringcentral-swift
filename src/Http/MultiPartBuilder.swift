@@ -8,37 +8,37 @@
 
 import Foundation
 
-class MultipartBuilder {
+public class MultipartBuilder {
     
     internal var body = String()
     internal var _contents = [String: AnyObject]()
     internal var _boundary: String?
     
     // Set the Boundary
-    func setBoundary(boundary: String = "") {
+    public func setBoundary(boundary: String = "") {
         self._boundary = boundary
     }
     
     // Boundary, return the boundary
-    func boundary() -> String {
+    public func boundary() -> String {
         return self._boundary!
     }
     
     // Set Body for the MultiPart
-    func setBody(body: [String: AnyObject]) -> MultipartBuilder {
+    public func setBody(body: [String: AnyObject]) -> MultipartBuilder {
         self.body = jsonToString(body)
         return self
     }
     
     // Retreive body
-    func getBody() -> String {
+    public func getBody() -> String {
         return self.body
     }
     
     // Function always use provided $filename. In cases when it's empty, for string content or when name cannot be
     // Automatically discovered the $filename will be set to attachment name.
     // If attachment name is not provided, it will be randomly generated.
-    func add(content: AnyObject, fileName: String = "", headers: [String: String]?=nil , name: String = "") -> MultipartBuilder {
+    public func add(content: AnyObject, fileName: String = "", headers: [String: String]?=nil , name: String = "") -> MultipartBuilder {
         
         var element: [String: AnyObject] = ["":""]
         // If file content is a string
@@ -71,12 +71,12 @@ class MultipartBuilder {
     }
     
     // Get the contents
-    func contents() -> [String:AnyObject] {
+    public func contents() -> [String:AnyObject] {
         return self._contents
     }
     
     // Create a request
-    func request(url: String, method: String = "POST", completion: (respsone: ApiResponse) -> Void) {
+    public func request(url: String, method: String = "POST", completion: (respsone: ApiResponse) -> Void) {
         //        var stream = self.requestBody()
         let uniqueId = NSProcessInfo.processInfo().globallyUniqueString
         let boundaryConstant = "Boundary-"+uniqueId
@@ -111,7 +111,7 @@ class MultipartBuilder {
     }
     
     
-    func jsonToString(json: [String: AnyObject]) -> String {
+    public func jsonToString(json: [String: AnyObject]) -> String {
         var result = "{"
         var delimiter = ""
         for key in json.keys {

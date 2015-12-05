@@ -9,7 +9,7 @@
 import Foundation
 
 /// Authorization object for the platform.
-class Auth {
+public class Auth {
     
     static let MAINCOMPANY = "101"
     
@@ -59,7 +59,7 @@ class Auth {
     
     /// Set the authentication data.
     ///
-    func setData(data: Dictionary<String, AnyObject>) -> Auth {
+    public func setData(data: Dictionary<String, AnyObject>) -> Auth {
         if data.count < 0 {
             println("The count is :",data.count)
             return self
@@ -117,7 +117,7 @@ class Auth {
     /// Reset the authentication data.
     ///
     
-    func reset() -> Void {
+    public func reset() -> Void {
         self.token_type = " ";
         
         self.access_token = "";
@@ -135,7 +135,7 @@ class Auth {
     }
     
     /// Return the authnetication data
-    func data()-> [String: AnyObject] {
+    public func data()-> [String: AnyObject] {
         
         var data: [String: AnyObject] = [:]
         data["token_type"]=self.token_type
@@ -154,7 +154,7 @@ class Auth {
     /// Checks whether or not the access token is valid
     ///
     /// :returns: A boolean for validity of access token
-    func isAccessTokenValid() -> Bool {
+    public func isAccessTokenValid() -> Bool {
         let time = NSDate().timeIntervalSince1970
         if(self.expire_time > time) {
             return true
@@ -165,20 +165,20 @@ class Auth {
     /// Checks for the validity of the refresh token
     ///
     /// :returns: A boolean for validity of the refresh token
-    func isRefreshTokenVald() -> Bool {
+    public func isRefreshTokenVald() -> Bool {
         return false
     }
     /// Returns the 'access token'
     ///
     /// :returns: String of 'access token'
-    func accessToken() -> String {
+    public func accessToken() -> String {
         return self.access_token!
     }
     
     /// Returns the 'refresh token'
     ///
     /// :returns: String of 'refresh token'
-    func refreshToken() -> String {
+    public func refreshToken() -> String {
         println("The refresh token is :"+self.refresh_token!)
         return self.refresh_token!
     }
@@ -186,14 +186,14 @@ class Auth {
     /// Returns the 'tokenType'
     ///
     /// :returns: String of 'token Type'
-    func tokenType() -> String {
+    public func tokenType() -> String {
         return self.token_type!
     }
     
     /// Returns bool if 'accessTokenValid'
     ///
     /// :returns: Bool if 'access token valid'
-    func accessTokenValid() -> Bool {
+    public func accessTokenValid() -> Bool {
         let time = NSDate().timeIntervalSince1970
         if self.expire_time > time {
             return true
@@ -206,7 +206,7 @@ class Auth {
     /// Returns bool if 'refreshTokenValid'
     ///
     /// :returns: String of 'refresh token valid'
-    func refreshTokenValid() -> Bool {
+    public func refreshTokenValid() -> Bool {
         let time = NSDate().timeIntervalSince1970
         if self.refresh_token_expire_time > time {
             return true

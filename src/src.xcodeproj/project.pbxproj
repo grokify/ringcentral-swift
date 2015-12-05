@@ -113,7 +113,6 @@
 		A6DADBD11C111470008D9A78 /* UInt8Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UInt8Extension.swift; sourceTree = "<group>"; };
 		A6DADBD21C111470008D9A78 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A6DADBD31C111470008D9A78 /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
-		A6DADC6D1C125508008D9A78 /* RingCentralSwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RingCentralSwift.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,7 +137,6 @@
 		A6DADA9B1C110B0E008D9A78 = {
 			isa = PBXGroup;
 			children = (
-				A6DADC6D1C125508008D9A78 /* RingCentralSwift.h */,
 				A6DADBAB1C111470008D9A78 /* Core */,
 				A6DADBAD1C111470008D9A78 /* Http */,
 				A6DADBB11C111470008D9A78 /* Platform */,
@@ -513,7 +511,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "src-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -525,7 +522,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "src-Bridging-Header.h";
 			};
 			name = Release;
 		};

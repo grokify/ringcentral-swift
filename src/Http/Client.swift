@@ -9,7 +9,7 @@
 import Foundation
 
 
-class Client {
+public class Client {
     
     internal var useMock: Bool = false
     internal var appName: String
@@ -32,11 +32,11 @@ class Client {
         self.appVersion = appVersion
     }
     
-    func getMockRegistry() -> AnyObject? {
+    public func getMockRegistry() -> AnyObject? {
         return mockRegistry
     }
     
-    func useMock(flag: Bool = false) -> Client {
+    public func useMock(flag: Bool = false) -> Client {
         self.useMock = flag
         return self
     }
@@ -47,7 +47,7 @@ class Client {
     ///
     /// :param: options         List of options for HTTP request
     /// :param: completion      Completion handler for HTTP request
-    func send(request: NSMutableURLRequest) -> ApiResponse {
+    public func send(request: NSMutableURLRequest) -> ApiResponse {
         if self.useMock {
             return sendMock(request)
         } else {
@@ -59,7 +59,7 @@ class Client {
     ///
     /// :param: options         List of options for HTTP request
     /// :param: completion      Completion handler for HTTP request
-    func send(request: NSMutableURLRequest, completion: (response: ApiResponse) -> Void) {
+    public func send(request: NSMutableURLRequest, completion: (response: ApiResponse) -> Void) {
         if self.useMock {
             sendMock(request) {
                 (r) in
@@ -74,7 +74,7 @@ class Client {
     }
     
     
-    func sendReal(request: NSMutableURLRequest, completionHandler: (response: ApiResponse) -> Void) {
+    public func sendReal(request: NSMutableURLRequest, completionHandler: (response: ApiResponse) -> Void) {
         //        var trans = ApiResponse(request: request)
         println("inside sendReal :")
         var semaphore = dispatch_semaphore_create(0)
@@ -92,11 +92,11 @@ class Client {
     }
     
     
-    func sendMock(request: NSMutableURLRequest, completion: (transaction: ApiResponse) -> Void) {
+    public func sendMock(request: NSMutableURLRequest, completion: (transaction: ApiResponse) -> Void) {
         
     }
     
-    func sendReal(request: NSMutableURLRequest) -> ApiResponse {
+    public func sendReal(request: NSMutableURLRequest) -> ApiResponse {
         
         var response: NSURLResponse?
         var error: NSError?
@@ -113,7 +113,7 @@ class Client {
         return apiresponse
     }
     
-    func sendMock(request: NSMutableURLRequest) -> ApiResponse {
+    public func sendMock(request: NSMutableURLRequest) -> ApiResponse {
         
         var data: NSData?
         var response: NSURLResponse?
@@ -124,7 +124,7 @@ class Client {
     }
     
     
-    func jsonToString(json: [String: AnyObject]) -> String {
+    public func jsonToString(json: [String: AnyObject]) -> String {
         var result = "{"
         var delimiter = ""
         for key in json.keys {
@@ -159,7 +159,7 @@ class Client {
     
     
     // Create a request
-    func createRequest(method: String, url: String, query: [String: String]?=nil, body: [String: AnyObject]?, headers: [String: String]) -> NSMutableURLRequest {
+    public func createRequest(method: String, url: String, query: [String: String]?=nil, body: [String: AnyObject]?, headers: [String: String]) -> NSMutableURLRequest {
         
         var truncatedBodyFinal: String = ""
         var truncatedQueryFinal: String = ""

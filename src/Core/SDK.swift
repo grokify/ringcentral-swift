@@ -9,7 +9,7 @@
 import Foundation
 
 // Object representation of a Standard Development Kit for RingCentral
-class SDK {
+public class SDK {
     
     // Set constants for SANDBOX and PRODUCTION servers.
     static var VERSION: String = ""
@@ -36,7 +36,7 @@ class SDK {
     /// Returns the Platform with the specified appKey and appSecret.
     
     /// :returns: A Platform to access the methods of the SDK
-    func platform() -> Platform {
+    public func platform() -> Platform {
         return self._platform
     }
     

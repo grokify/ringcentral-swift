@@ -9,7 +9,7 @@
 import Foundation
 
 /// Platform used to call HTTP request methods.
-class Platform {
+public class Platform {
     
     // platform Constants
     let ACCESS_TOKEN_TTL = "3600"; // 60 minutes
@@ -50,7 +50,7 @@ class Platform {
     
     // Returns the auth object
     ///
-    func returnAuth() -> Auth {
+    public func returnAuth() -> Auth {
         return self.auth
     }
     
@@ -59,7 +59,7 @@ class Platform {
     /// @param: path              The username of the RingCentral account
     /// @param: options           The password of the RingCentral account
     /// @response: ApiResponse    The password of the RingCentral account
-    func createUrl(path: String, options: [String: AnyObject]) -> String {
+    public func createUrl(path: String, options: [String: AnyObject]) -> String {
         println("Inside CreateURL")
         var builtUrl = ""
         if(options["skipAuthCheck"] === true){
@@ -76,7 +76,7 @@ class Platform {
     ///
     /// :param: username    The username of the RingCentral account
     /// :param: password    The password of the RingCentral account
-    func login(username: String, ext: String, password: String) -> ApiResponse {
+    public func login(username: String, ext: String, password: String) -> ApiResponse {
         let response = requestToken(self.TOKEN_ENDPOINT,body: [
             "grant_type": "password",
             "username": username,
@@ -98,7 +98,7 @@ class Platform {
     ///
     /// **Caution**: Refreshing an accessToken will deplete it's current time, and will
     /// not be appended to following accessToken.
-    func refresh() -> ApiResponse {
+    public func refresh() -> ApiResponse {
         //        let transaction:
         println("Inside Rfresh")
         if(!self.auth.refreshTokenValid()){
@@ -125,7 +125,7 @@ class Platform {
     /// @param: request     NSMutableURLRequest
     /// @param: options     list of options
     /// @response: NSMutableURLRequest
-    func inflateRequest(path: String, request: NSMutableURLRequest, options: [String: AnyObject]) -> NSMutableURLRequest {
+    public func inflateRequest(path: String, request: NSMutableURLRequest, options: [String: AnyObject]) -> NSMutableURLRequest {
         var check = 0
         if options["skipAuthCheck"] == nil {
             ensureAuthentication()
@@ -146,7 +146,7 @@ class Platform {
     /// @param: request     NSMutableURLRequest
     /// @param: options     list of options
     /// @response: ApiResponse
-    func sendRequest(request: NSMutableURLRequest, path: String, options: [String: AnyObject]!, completion: (transaction: ApiResponse) -> Void) {
+    public func sendRequest(request: NSMutableURLRequest, path: String, options: [String: AnyObject]!, completion: (transaction: ApiResponse) -> Void) {
         client.send(inflateRequest(path, request: request, options: options)) {
             (t) in
             completion(transaction: t)
@@ -154,7 +154,7 @@ class Platform {
         }
     }
     
-    func sendRequest(request: NSMutableURLRequest, path: String, options: [String: AnyObject]!) -> ApiResponse {
+    public func sendRequest(request: NSMutableURLRequest, path: String, options: [String: AnyObject]!) -> ApiResponse {
         return client.send(inflateRequest(path, request: request, options: options))
     }
     
@@ -179,7 +179,7 @@ class Platform {
     
     
     /// Base 64 encoding
-    func apiKey() -> String {
+    internal func apiKey() -> String {
         let plainData = (self.appKey + ":" + self.appSecret as NSString).dataUsingEncoding(NSUTF8StringEncoding)
         let base64String = plainData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         println("apiKey:",base64String)
@@ -191,7 +191,7 @@ class Platform {
     /// Logs the user out of the current account.
     ///
     /// Kills the current accessToken and refreshToken.
-    func logout() -> ApiResponse {
+    public func logout() -> ApiResponse {
         let response = requestToken(self.TOKEN_ENDPOINT,body: [
             "token": self.auth.accessToken()
             ])
@@ -203,7 +203,7 @@ class Platform {
     /// Returns whether or not the current accessToken is valid.
     ///
     /// :return: A boolean to check the validity of token.
-    func isTokenValid() -> Bool {
+    public func isTokenValid() -> Bool {
         return false
     }
     
@@ -211,14 +211,14 @@ class Platform {
     /// Returns whether or not the current Platform has been authorized with a user.
     ///
     /// :return: A boolean to check the validity of authorization.
-    func isAuthorized() -> Bool {
+    public func isAuthorized() -> Bool {
         return auth.isAccessTokenValid()
     }
     
     /// Tells the user if the accessToken is valed
     ///
     ///
-    func ensureAuthentication() {
+    public func ensureAuthentication() {
         println("Inside EnsureAuthentication")
         if (!self.auth.accessTokenValid()) {
             refresh()
@@ -228,7 +228,7 @@ class Platform {
     
     
     // Generic Method calls  ( HTTP ) GET
-    func get(url: String, query: [String: String] = ["":""], completion: (response: ApiResponse) -> Void) {
+    public func get(url: String, query: [String: String] = ["":""], completion: (response: ApiResponse) -> Void) {
         request([
             "method": "GET",
             "url": url,
@@ -242,7 +242,7 @@ class Platform {
     }
     
     // Generic Method calls  ( HTTP ) without completion handler
-    func get(url: String, query: [String: String] = ["":""]) -> ApiResponse {
+    public func get(url: String, query: [String: String] = ["":""]) -> ApiResponse {
         // Check if query is empty
         
         return request([
@@ -254,7 +254,7 @@ class Platform {
     
     
     // Generic Method calls  ( HTTP ) POST
-    func post(url: String, body: [String: AnyObject] = ["":""], completion: (respsone: ApiResponse) -> Void) {
+    public func post(url: String, body: [String: AnyObject] = ["":""], completion: (respsone: ApiResponse) -> Void) {
         request([
             "method": "POST",
             "url": url,
@@ -268,7 +268,7 @@ class Platform {
     }
     
     // Generic Method calls  ( HTTP ) PUT
-    func put(url: String, body: [String: AnyObject] = ["":""], completion: (respsone: ApiResponse) -> Void) {
+    public func put(url: String, body: [String: AnyObject] = ["":""], completion: (respsone: ApiResponse) -> Void) {
         request([
             "method": "PUT",
             "url": url,
@@ -282,7 +282,7 @@ class Platform {
     }
     
     // Generic Method calls ( HTTP ) DELETE
-    func delete(url: String, query: [String: String] = ["":""], completion: (response: ApiResponse) -> Void) {
+    public func delete(url: String, query: [String: String] = ["":""], completion: (response: ApiResponse) -> Void) {
         request([
             "method": "DELETE",
             "url": url,
