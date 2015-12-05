@@ -11,21 +11,21 @@
 import Foundation
 import PubNub
 
-class Subscription: NSObject, PNObjectEventListener {
+public class Subscription: NSObject, PNObjectEventListener {
     
-    static var EVENT_NOTIFICATION: String = "notification"
-    static var EVENT_REMOVE_SUCCESS: String = "removeSuccess"
-    static var EVENT_RENEW_SUCCESS: String = "removeError"
-    static var EVENT_RENEW_ERROR: String = "renewError"
-    static var EVENT_SUBSCRIBE_SUCCESS: String = "subscribeSuccess"
-    static var EVENT_SUBSCRIBE_ERROR: String = "subscribeError"
+    public static var EVENT_NOTIFICATION: String = "notification"
+    public static var EVENT_REMOVE_SUCCESS: String = "removeSuccess"
+    public static var EVENT_RENEW_SUCCESS: String = "removeError"
+    public static var EVENT_RENEW_ERROR: String = "renewError"
+    public static var EVENT_SUBSCRIBE_SUCCESS: String = "subscribeSuccess"
+    public static var EVENT_SUBSCRIBE_ERROR: String = "subscribeError"
     
     
     /// Fields of subscription
-    private let platform: Platform!
-    private var pubnub: PubNub?
-    private var eventFilters: [String] = []
-    private var _keepPolling: Bool = false
+    let platform: Platform!
+    var pubnub: PubNub?
+    var eventFilters: [String] = []
+    var _keepPolling: Bool = false
     var subscription: ISubscription?
     var function: ((arg: String) -> Void) = {(arg) in }
     
@@ -33,7 +33,7 @@ class Subscription: NSObject, PNObjectEventListener {
     /// Initializes a subscription with Platform
     ///
     /// :param: platform        Authorized platform
-    init(platform: Platform) {
+    public init(platform: Platform) {
         self.platform = platform
     }
     
@@ -62,14 +62,14 @@ class Subscription: NSObject, PNObjectEventListener {
     /// Returns PubNub object
     ///
     /// :returns: PubNub object
-    func getPubNub() -> PubNub? {
+    public func getPubNub() -> PubNub? {
         return pubnub
     }
     
     /// Returns the platform
     ///
     /// :returns: Platform
-    func getPlatform() -> Platform {
+    public func getPlatform() -> Platform {
         return platform
     }
     
@@ -77,7 +77,7 @@ class Subscription: NSObject, PNObjectEventListener {
     ///
     /// :param: events          List of events to add
     /// :returns: Subscription
-    func addEvents(events: [String]) -> Subscription {
+    public func addEvents(events: [String]) -> Subscription {
         for event in events {
             self.eventFilters.append(event)
         }
@@ -88,7 +88,7 @@ class Subscription: NSObject, PNObjectEventListener {
     ///
     /// :param: events          List of events to set
     /// :returns: Subscription
-    func setevents(events: [String]) -> Subscription {
+    public func setevents(events: [String]) -> Subscription {
         self.eventFilters = events
         return self
     }
@@ -103,7 +103,7 @@ class Subscription: NSObject, PNObjectEventListener {
     /// Registers for a new subscription or renews an old one
     ///
     /// :param: options         List of options for PubNub
-    func register(options: [String: AnyObject] = [String: AnyObject](), completion: (transaction: ApiResponse) -> Void) {
+    public func register(options: [String: AnyObject] = [String: AnyObject](), completion: (transaction: ApiResponse) -> Void) {
         if (isSubscribed()) {
             return renew(options) {
                 (t) in
@@ -118,12 +118,12 @@ class Subscription: NSObject, PNObjectEventListener {
     }
     
     /// Set Keep Polling
-    func setKeepPolling(flag: Bool? = false) {
+    public func setKeepPolling(flag: Bool? = false) {
         self._keepPolling = flag!
     }
     
     /// Keep Polling
-    func keepPolling() -> Bool{
+    public func keepPolling() -> Bool{
         return self._keepPolling
     }
     
@@ -132,7 +132,7 @@ class Subscription: NSObject, PNObjectEventListener {
     /// Renews the subscription
     ///
     /// :param: options         List of options for PubNub
-    func renew(options: [String: AnyObject], completion: (transaction: ApiResponse) -> Void) {
+    public func renew(options: [String: AnyObject], completion: (transaction: ApiResponse) -> Void) {
         
         // include PUT instead of the apiCall
         platform.put("/subscription/" + subscription!.id,
@@ -157,7 +157,7 @@ class Subscription: NSObject, PNObjectEventListener {
     /// Subscribes to a channel with given events
     ///
     /// :param: options         Options for PubNub
-    func subscribe(options: [String: AnyObject], completion: (transaction: ApiResponse) -> Void) {
+    public func subscribe(options: [String: AnyObject], completion: (transaction: ApiResponse) -> Void) {
         
         // Create Subscription
         platform.post("/subscription",
@@ -198,7 +198,7 @@ class Subscription: NSObject, PNObjectEventListener {
     }
     
     /// Unsubscribes from the current subscription
-    func destroy() {
+    public func destroy() {
         if let sub = self.subscription {
             unsubscribe()
         }
@@ -207,14 +207,14 @@ class Subscription: NSObject, PNObjectEventListener {
     /// Sets a method that will run after every PubNub callback
     ///
     /// :param: functionHolder      Function to be ran after every PubNub callback
-    func setMethod(functionHolder: ((arg: String) -> Void)) {
+    public func setMethod(functionHolder: ((arg: String) -> Void)) {
         self.function = functionHolder
     }
     
     /// Checks if currently subscribed
     ///
     /// :returns: Bool of if currently subscribed
-    func isSubscribed() -> Bool {
+    public func isSubscribed() -> Bool {
         if let sub = self.subscription {
             let dil = sub.deliveryMode
             return dil.subscriberKey != "" && dil.address != ""
@@ -223,7 +223,7 @@ class Subscription: NSObject, PNObjectEventListener {
     }
     
     /// Emits events
-    func emit(event: String) -> AnyObject {
+    public func emit(event: String) -> AnyObject {
         return ""
     }
     
@@ -272,7 +272,7 @@ class Subscription: NSObject, PNObjectEventListener {
     ///
     /// :param: client          The client of the receiver
     /// :param: message         Message being received back
-    func client(client: PubNub!, didReceiveMessage message: PNMessageResult!) {
+    public func client(client: PubNub!, didReceiveMessage message: PNMessageResult!) {
         var base64Message = message.data.message as! String
         var base64Key = self.subscription!.deliveryMode.encryptionKey
         

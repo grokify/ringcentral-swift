@@ -12,12 +12,12 @@ import Foundation
 public class Platform {
     
     // platform Constants
-    let ACCESS_TOKEN_TTL = "3600"; // 60 minutes
-    let REFRESH_TOKEN_TTL = "604800"; // 1 week
-    let TOKEN_ENDPOINT = "/restapi/oauth/token";
-    let REVOKE_ENDPOINT = "/restapi/oauth/revoke";
-    let API_VERSION = "v1.0";
-    let URL_PREFIX = "/restapi";
+    public let ACCESS_TOKEN_TTL = "3600"; // 60 minutes
+    public let REFRESH_TOKEN_TTL = "604800"; // 1 week
+    public let TOKEN_ENDPOINT = "/restapi/oauth/token";
+    public let REVOKE_ENDPOINT = "/restapi/oauth/revoke";
+    public let API_VERSION = "v1.0";
+    public let URL_PREFIX = "/restapi";
     
     
     // Platform credentials
@@ -36,7 +36,7 @@ public class Platform {
     /// :param: appKey      The appKey of your app
     /// :param: appSecet    The appSecret of your app
     /// :param: server      Choice of PRODUCTION or SANDBOX
-    init(client: Client, appKey: String, appSecret: String, server: String, appName: String = "", appVersion: String = "") {
+    public init(client: Client, appKey: String, appSecret: String, server: String, appName: String = "", appVersion: String = "") {
         self.appKey = appKey
         self.appName = appName != "" ? appName : "Unnamed"
         self.appVersion = appVersion != "" ? appVersion : "0.0.0"
@@ -179,7 +179,7 @@ public class Platform {
     
     
     /// Base 64 encoding
-    internal func apiKey() -> String {
+    func apiKey() -> String {
         let plainData = (self.appKey + ":" + self.appSecret as NSString).dataUsingEncoding(NSUTF8StringEncoding)
         let base64String = plainData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         println("apiKey:",base64String)
@@ -218,7 +218,7 @@ public class Platform {
     /// Tells the user if the accessToken is valed
     ///
     ///
-    public func ensureAuthentication() {
+    func ensureAuthentication() {
         println("Inside EnsureAuthentication")
         if (!self.auth.accessTokenValid()) {
             refresh()

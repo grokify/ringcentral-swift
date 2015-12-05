@@ -26,7 +26,7 @@ public class SDK {
     
     
     
-    init(appKey: String, appSecret: String, server: String, appName: String?="", appVersion: String?="") {
+    public init(appKey: String, appSecret: String, server: String, appName: String?="", appVersion: String?="") {
         self._client = Client()
         _platform = Platform(client: self._client, appKey: appKey, appSecret: appSecret, server: server, appName: appName!, appVersion: appVersion!)
         self.server = server
@@ -45,12 +45,12 @@ public class SDK {
     //  Create a subscription.
     
     //  :returns: Subscription object that has been currently created
-    func createSubscription() -> Subscription {
+    public func createSubscription() -> Subscription {
         return Subscription(platform: self._platform)
     }
     
     //  Create a multi-part builder
-    func createMultipartBuilder() -> MultipartBuilder {
+    public func createMultipartBuilder() -> MultipartBuilder {
         return MultipartBuilder()
     }
     

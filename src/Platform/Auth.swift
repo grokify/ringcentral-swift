@@ -40,7 +40,7 @@ public class Auth {
     
     
     //Default constructor for the
-    init() {
+    public init() {
         //        reset()
         self.token_type = nil
         
