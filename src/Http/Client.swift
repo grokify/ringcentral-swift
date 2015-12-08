@@ -31,11 +31,13 @@ public class Client {
         self.appName = appName
         self.appVersion = appVersion
     }
-    
+
+    //FIXME Move this to ClientMock class
     public func getMockRegistry() -> AnyObject? {
         return mockRegistry
     }
-    
+
+    //FIXME Decouple real and mock implementations
     public func useMock(flag: Bool = false) -> Client {
         self.useMock = flag
         return self
@@ -47,6 +49,7 @@ public class Client {
     ///
     /// :param: options         List of options for HTTP request
     /// :param: completion      Completion handler for HTTP request
+    //FIXME Decouple real and mock implementations
     public func send(request: NSMutableURLRequest) -> ApiResponse {
         if self.useMock {
             return sendMock(request)
@@ -59,6 +62,7 @@ public class Client {
     ///
     /// :param: options         List of options for HTTP request
     /// :param: completion      Completion handler for HTTP request
+    //FIXME Decouple real and mock implementations
     public func send(request: NSMutableURLRequest, completion: (response: ApiResponse) -> Void) {
         if self.useMock {
             sendMock(request) {
@@ -82,8 +86,8 @@ public class Client {
             
             (data, response, error) in
             var errors: NSError?
-            let dict = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &errors) as! NSDictionary
-            var apiresponse = ApiResponse(request: request, data: data, response: response, error: error, dict: dict)
+            let dict = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &errors) as! NSDictionary //FIXME Duplicated code -- move it to ApiResponse
+            var apiresponse = ApiResponse(request: request, data: data, response: response, error: error, dict: dict) //FIXME Duplicated code -- extract into a method
             completionHandler(response:apiresponse)
             dispatch_semaphore_signal(semaphore)
         }
@@ -103,8 +107,8 @@ public class Client {
         let data = NSURLConnection.sendSynchronousRequest(request, returningResponse: &response, error: &error)
         println((response as! NSHTTPURLResponse).statusCode)
         var errors: NSError?
-        let dict = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &errors) as! NSDictionary
-        var apiresponse = ApiResponse(request: request, data: data, response: response, error: error, dict: dict)
+        let dict = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &errors) as! NSDictionary //FIXME Duplicated code -- move it to ApiResponse
+        var apiresponse = ApiResponse(request: request, data: data, response: response, error: error, dict: dict) //FIXME Duplicated code -- extract into a method
         //        trans.setData(data)
         //        trans.setDict(readdata)
         //        trans.setResponse(response)
