@@ -118,11 +118,13 @@ public class Subscription: NSObject, PNObjectEventListener {
     }
     
     /// Set Keep Polling
+    //FIXME This is not needed -- it's PHP stuff
     public func setKeepPolling(flag: Bool? = false) {
         self._keepPolling = flag!
     }
     
     /// Keep Polling
+    //FIXME This is not needed -- it's PHP stuff
     public func keepPolling() -> Bool{
         return self._keepPolling
     }
@@ -198,6 +200,7 @@ public class Subscription: NSObject, PNObjectEventListener {
     }
     
     /// Unsubscribes from the current subscription
+    //FIXME This is not needed
     public func destroy() {
         if let sub = self.subscription {
             unsubscribe()

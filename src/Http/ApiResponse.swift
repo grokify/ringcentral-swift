@@ -8,15 +8,16 @@
 
 import Foundation
 
+//FIXME Naming convention for getters
 public class ApiResponse {
     
     // Constants
-    internal var jsonAsArray = [String: AnyObject]()
+    internal var jsonAsArray = [String: AnyObject]() //FIXME Never assigned, should be replaced with dict?
     internal var jsonAsObject: AnyObject? = AnyObject?()
     internal var multipartTransactions: AnyObject? = AnyObject?()
     internal var request: NSMutableURLRequest?
     internal var raw: AnyObject? = AnyObject?()
-    internal var jsonAsString: String = ""
+    internal var jsonAsString: String = "" //FIXME Never assigned
     
     // Data Response Error Initialization
     private var data: NSData?

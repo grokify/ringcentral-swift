@@ -85,7 +85,7 @@ public class Platform {
             "access_token_ttl": self.ACCESS_TOKEN_TTL,
             "refresh_token_ttl": self.REFRESH_TOKEN_TTL
             ])
-        println("Login : Successfull return from requestToken")
+        println("Login : Successfull return from requestToken") //FIXME Print is not allowed
         self.auth.setData(response.getDict())
         println("Is access token valid : ",self.auth.accessTokenValid())
         println("The auth data is : ")
@@ -203,6 +203,7 @@ public class Platform {
     /// Returns whether or not the current accessToken is valid.
     ///
     /// :return: A boolean to check the validity of token.
+    //FIXME Remove
     public func isTokenValid() -> Bool {
         return false
     }
@@ -211,6 +212,7 @@ public class Platform {
     /// Returns whether or not the current Platform has been authorized with a user.
     ///
     /// :return: A boolean to check the validity of authorization.
+    //FIXME Remove
     public func isAuthorized() -> Bool {
         return auth.isAccessTokenValid()
     }
@@ -242,6 +244,7 @@ public class Platform {
     }
     
     // Generic Method calls  ( HTTP ) without completion handler
+    //FIXME self.client.createRequest should be called here instead of providing options for sendRequest
     public func get(url: String, query: [String: String] = ["":""]) -> ApiResponse {
         // Check if query is empty
         
@@ -254,6 +257,7 @@ public class Platform {
     
     
     // Generic Method calls  ( HTTP ) POST
+    //FIXME self.client.createRequest should be called here instead of providing options for sendRequest
     public func post(url: String, body: [String: AnyObject] = ["":""], completion: (respsone: ApiResponse) -> Void) {
         request([
             "method": "POST",
@@ -268,6 +272,7 @@ public class Platform {
     }
     
     // Generic Method calls  ( HTTP ) PUT
+    //FIXME self.client.createRequest should be called here instead of providing options for sendRequest
     public func put(url: String, body: [String: AnyObject] = ["":""], completion: (respsone: ApiResponse) -> Void) {
         request([
             "method": "PUT",
@@ -282,6 +287,7 @@ public class Platform {
     }
     
     // Generic Method calls ( HTTP ) DELETE
+    //FIXME self.client.createRequest should be called here instead of providing options for sendRequest
     public func delete(url: String, query: [String: String] = ["":""], completion: (response: ApiResponse) -> Void) {
         request([
             "method": "DELETE",
@@ -298,6 +304,8 @@ public class Platform {
     //    /// Generic HTTP request method
     //    ///
     //    /// :param: options     List of options for HTTP request
+    //FIXME Name should be sendRequest
+    //FIXME Instead of options should take request as parameter
     func request(options: [String: AnyObject]) -> ApiResponse {
         var method = ""
         var url = ""
