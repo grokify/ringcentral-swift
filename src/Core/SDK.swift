@@ -25,7 +25,13 @@ public class SDK {
     var logger: Bool = false
     
     
-    
+    /// Constructor for the SDK object
+    ///
+    /// :param: appKey      The appKey of your app
+    /// :param: appSecet    The appSecret of your app
+    /// :param: server      Choice of PRODUCTION or SANDBOX
+    /// @param: appName     appName ( optional )
+    /// @param: appVersion  appVersion ( optional )
     public init(appKey: String, appSecret: String, server: String, appName: String?="", appVersion: String?="") {
         self._client = Client()
         _platform = Platform(client: self._client, appKey: appKey, appSecret: appSecret, server: server, appName: appName!, appVersion: appVersion!)

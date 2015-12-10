@@ -15,51 +15,41 @@ public class Auth {
     
     // Authorization information
     var token_type: String?
-    
     var access_token: String?
     var expires_in: Double = 0
     var expire_time: Double = 0
-    
-    //    var app_key: String?
-    //    var app_secret: String?
-    
     var refresh_token: String?
     var refresh_token_expires_in: Double = 0
     var refresh_token_expire_time: Double = 0
-    
-    
     var scope: String?
     var owner_id: String?
     
-    //    let username: String
-    //    let password: String
-    //    let ext: String
-    //    let server: String
-    //
-    //    var authenticated: Bool = false
-    
-    
-    //Default constructor for the
+
+    /// Constructor for the Auth Object
+    ///
+    /// :param: appKey      The appKey of your app
+    /// :param: appSecet    The appSecret of your app
+    /// :param: server      Choice of PRODUCTION or SANDBOX
     public init() {
-        //        reset()
-        self.token_type = nil
         
+        self.token_type = nil
         self.access_token = nil
         self.expires_in = 0
         self.expire_time = 0
-        
         self.refresh_token = nil
         self.refresh_token_expires_in = 0
         self.refresh_token_expire_time = 0
-        
         self.scope = nil
         self.owner_id = nil
         
     }
     
-    /// Set the authentication data.
+    /// func setData()
     ///
+    /// :param: data        Dictionary of Data from the ApiResposne ( token information )
+    /// @response: Auth     Instance of Auth class
     public func setData(data: Dictionary<String, AnyObject>) -> Auth {
+        
         if data.count < 0 {
             println("The count is :",data.count)
             return self
@@ -89,7 +79,7 @@ public class Auth {
                 let time = NSDate().timeIntervalSince1970
                 self.expire_time = time + self.expires_in
             }
-        }else if let expire_time = data["expire_time"] as? Double {
+        } else if let expire_time = data["expire_time"] as? Double {
             self.expire_time = expire_time
         }
         
@@ -105,7 +95,7 @@ public class Auth {
                 let time = NSDate().timeIntervalSince1970
                 self.refresh_token_expire_time = time + self.refresh_token_expires_in
             }
-        }else if let refresh_token_expire_time = data["refresh_token_expire_time"] as? Double {
+        } else if let refresh_token_expire_time = data["refresh_token_expire_time"] as? Double {
             self.refresh_token_expire_time = refresh_token_expire_time
         }
         return self
@@ -116,7 +106,8 @@ public class Auth {
     
     /// Reset the authentication data.
     ///
-    
+    /// func reset()
+    /// @response: Void
     public func reset() -> Void {
         self.token_type = " ";
         
@@ -135,6 +126,9 @@ public class Auth {
     }
     
     /// Return the authnetication data
+    ///
+    /// func data()
+    /// @response:             Return a list of authentication data ( List of Token Information )
     public func data()-> [String: AnyObject] {
         
         var data: [String: AnyObject] = [:]

@@ -11,13 +11,13 @@ import Foundation
 
 public class Client {
     
+    // Client Variables
     internal var useMock: Bool = false
     internal var appName: String
     internal var appVersion: String
-    
     internal var mockRegistry: AnyObject?
     
-    // Constants
+    // Client Constants
     var contentType = "Content-Type"
     var jsonContentType = "application/json"
     var multipartContentType = "multipart/mixed"
@@ -26,60 +26,35 @@ public class Client {
     var accept = "Accept"
     
     
-    
+    /// Constructor for the Client
+    ///
+    /// :param: appName        The appKey of your app
+    /// :param: appVersion     The appSecret of your app
     init(appName: String = "", appVersion: String = "") {
         self.appName = appName
         self.appVersion = appVersion
     }
-
-    //FIXME Move this to ClientMock class
-    public func getMockRegistry() -> AnyObject? {
-        return mockRegistry
-    }
-
-    //FIXME Decouple real and mock implementations
-    public func useMock(flag: Bool = false) -> Client {
-        self.useMock = flag
-        return self
-    }
-    
-    
-    
-    /// Generic HTTP request
+   /// Generic HTTP request
     ///
     /// :param: options         List of options for HTTP request
     /// :param: completion      Completion handler for HTTP request
-    //FIXME Decouple real and mock implementations
-    public func send(request: NSMutableURLRequest) -> ApiResponse {
-        if self.useMock {
-            return sendMock(request)
-        } else {
-            return sendReal(request)
-        }
+   public func send(request: NSMutableURLRequest) -> ApiResponse {
+
+        var response: NSURLResponse?
+        var error: NSError?
+        let data = NSURLConnection.sendSynchronousRequest(request, returningResponse: &response, error: &error)
+        println((response as! NSHTTPURLResponse).statusCode)
+        var apiresponse = ApiResponse(request: request, data: data, response: response, error: error)
+        return apiresponse
     }
+    
     
     /// Generic HTTP request with completion handler
     ///
     /// :param: options         List of options for HTTP request
     /// :param: completion      Completion handler for HTTP request
-    //FIXME Decouple real and mock implementations
-    public func send(request: NSMutableURLRequest, completion: (response: ApiResponse) -> Void) {
-        if self.useMock {
-            sendMock(request) {
-                (r) in
-                completion(response: r)
-            }
-        } else {
-            sendReal(request) {
-                (r) in
-                completion(response: r)
-            }
-        }
-    }
-    
-    
-    public func sendReal(request: NSMutableURLRequest, completionHandler: (response: ApiResponse) -> Void) {
-        //        var trans = ApiResponse(request: request)
+   public func sendReal(request: NSMutableURLRequest, completionHandler: (response: ApiResponse) -> Void) {
+        
         println("inside sendReal :")
         var semaphore = dispatch_semaphore_create(0)
         var task: NSURLSessionDataTask = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -88,46 +63,20 @@ public class Client {
             var errors: NSError?
             let dict = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &errors) as! NSDictionary //FIXME Duplicated code -- move it to ApiResponse
             var apiresponse = ApiResponse(request: request, data: data, response: response, error: error, dict: dict) //FIXME Duplicated code -- extract into a method
+            var apiresponse = ApiResponse(request: request, data: data, response: response, error: error)
             completionHandler(response:apiresponse)
             dispatch_semaphore_signal(semaphore)
         }
         task.resume()
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
-    }
-    
-    
-    public func sendMock(request: NSMutableURLRequest, completion: (transaction: ApiResponse) -> Void) {
         
     }
     
-    public func sendReal(request: NSMutableURLRequest) -> ApiResponse {
-        
-        var response: NSURLResponse?
-        var error: NSError?
-        let data = NSURLConnection.sendSynchronousRequest(request, returningResponse: &response, error: &error)
-        println((response as! NSHTTPURLResponse).statusCode)
-        var errors: NSError?
-        let dict = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &errors) as! NSDictionary //FIXME Duplicated code -- move it to ApiResponse
-        var apiresponse = ApiResponse(request: request, data: data, response: response, error: error, dict: dict) //FIXME Duplicated code -- extract into a method
-        //        trans.setData(data)
-        //        trans.setDict(readdata)
-        //        trans.setResponse(response)
-        //        trans.setError(error)
-        
-        return apiresponse
-    }
-    
-    public func sendMock(request: NSMutableURLRequest) -> ApiResponse {
-        
-        var data: NSData?
-        var response: NSURLResponse?
-        var error: NSError?
-        var dict: NSDictionary?
-        var trans = ApiResponse(request: request, data: data, response: response, error: error, dict: dict)
-        return trans
-    }
-    
-    
+   
+    /// func jsonToString()
+    ///
+    /// @param: json        Json Object
+    /// @response           String
     public func jsonToString(json: [String: AnyObject]) -> String {
         var result = "{"
         var delimiter = ""
@@ -162,7 +111,14 @@ public class Client {
     }
     
     
-    // Create a request
+    /// func createRequest()
+    ///
+    /// @param: method      NSMutableURLRequest
+    /// @param: url         list of options
+    /// @param: query       query ( optional )
+    /// @param: body        body ( optional )
+    /// @param: headers     headers
+    /// @response: NSMutableURLRequest
     public func createRequest(method: String, url: String, query: [String: String]?=nil, body: [String: AnyObject]?, headers: [String: String]) -> NSMutableURLRequest {
         
         var truncatedBodyFinal: String = ""
@@ -225,7 +181,7 @@ public class Client {
         // Create a NSMutableURLRequest
         var request = NSMutableURLRequest()
         
-        // check for certain things
+        // Get RID of these
         println("Inside Create Request")
         println("The url is :"+url)
         println("The queryFinal is :"+queryFinal)
