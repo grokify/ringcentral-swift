@@ -35,6 +35,7 @@ public class Client {
         self.appVersion = appVersion
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
    /// Generic HTTP request
     ///
     /// :param: options         List of options for HTTP request
@@ -48,6 +49,8 @@ public class Client {
         var apiresponse = ApiResponse(request: request, data: data, response: response, error: error)
         return apiresponse
 =======
+=======
+>>>>>>> 379c2ade04ea7716632122604a35ec5676b18432
 
     //FIXME Move this to ClientMock class
     public func getMockRegistry() -> AnyObject? {
@@ -82,9 +85,12 @@ public class Client {
     /// :param: options         List of options for HTTP request
     /// :param: completion      Completion handler for HTTP request
 <<<<<<< HEAD
+<<<<<<< HEAD
    public func sendReal(request: NSMutableURLRequest, completionHandler: (response: ApiResponse) -> Void) {
         
 =======
+=======
+>>>>>>> 379c2ade04ea7716632122604a35ec5676b18432
     //FIXME Decouple real and mock implementations
     public func send(request: NSMutableURLRequest, completion: (response: ApiResponse) -> Void) {
         if self.useMock {
@@ -113,7 +119,10 @@ public class Client {
             let dict = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &errors) as! NSDictionary //FIXME Duplicated code -- move it to ApiResponse
             var apiresponse = ApiResponse(request: request, data: data, response: response, error: error, dict: dict) //FIXME Duplicated code -- extract into a method
 <<<<<<< HEAD
+<<<<<<< HEAD
             var apiresponse = ApiResponse(request: request, data: data, response: response, error: error)
+=======
+>>>>>>> 379c2ade04ea7716632122604a35ec5676b18432
 =======
 >>>>>>> 379c2ade04ea7716632122604a35ec5676b18432
             completionHandler(response:apiresponse)

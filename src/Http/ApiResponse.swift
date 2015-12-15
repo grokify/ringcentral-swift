@@ -14,8 +14,11 @@ public class ApiResponse {
     // Constants
     internal var jsonAsArray = [String: AnyObject]() //FIXME Never assigned, should be replaced with dict?
 <<<<<<< HEAD
+<<<<<<< HEAD
     // ApiResponse Constants
     internal var jsonAsArray = [String: AnyObject]()
+=======
+>>>>>>> 379c2ade04ea7716632122604a35ec5676b18432
 =======
 >>>>>>> 379c2ade04ea7716632122604a35ec5676b18432
     internal var jsonAsObject: AnyObject? = AnyObject?()

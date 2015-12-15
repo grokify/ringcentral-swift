@@ -279,10 +279,14 @@ public class Platform {
     
     // Generic Method calls  ( HTTP ) PUT
 <<<<<<< HEAD
+<<<<<<< HEAD
     ///
     /// @param: url             token endpoint
     /// @param: body            body
     /// @return ApiResponse     Callback
+=======
+    //FIXME self.client.createRequest should be called here instead of providing options for sendRequest
+>>>>>>> 379c2ade04ea7716632122604a35ec5676b18432
 =======
     //FIXME self.client.createRequest should be called here instead of providing options for sendRequest
 >>>>>>> 379c2ade04ea7716632122604a35ec5676b18432
@@ -301,10 +305,14 @@ public class Platform {
     
     // Generic Method calls ( HTTP ) DELETE
 <<<<<<< HEAD
+<<<<<<< HEAD
     ///
     /// @param: url             token endpoint
     /// @param: query           body
     /// @return ApiResponse     Callback
+=======
+    //FIXME self.client.createRequest should be called here instead of providing options for sendRequest
+>>>>>>> 379c2ade04ea7716632122604a35ec5676b18432
 =======
     //FIXME self.client.createRequest should be called here instead of providing options for sendRequest
 >>>>>>> 379c2ade04ea7716632122604a35ec5676b18432
@@ -325,9 +333,14 @@ public class Platform {
     //    ///
     //    /// :param: options     List of options for HTTP request
 <<<<<<< HEAD
+<<<<<<< HEAD
     /// Generic HTTP request method
     ///
     /// @param: options     List of options for HTTP request
+=======
+    //FIXME Name should be sendRequest
+    //FIXME Instead of options should take request as parameter
+>>>>>>> 379c2ade04ea7716632122604a35ec5676b18432
 =======
     //FIXME Name should be sendRequest
     //FIXME Instead of options should take request as parameter
