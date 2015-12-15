@@ -34,6 +34,7 @@ public class Client {
         self.appName = appName
         self.appVersion = appVersion
     }
+<<<<<<< HEAD
    /// Generic HTTP request
     ///
     /// :param: options         List of options for HTTP request
@@ -46,6 +47,33 @@ public class Client {
         println((response as! NSHTTPURLResponse).statusCode)
         var apiresponse = ApiResponse(request: request, data: data, response: response, error: error)
         return apiresponse
+=======
+
+    //FIXME Move this to ClientMock class
+    public func getMockRegistry() -> AnyObject? {
+        return mockRegistry
+    }
+
+    //FIXME Decouple real and mock implementations
+    public func useMock(flag: Bool = false) -> Client {
+        self.useMock = flag
+        return self
+    }
+    
+    
+    
+    /// Generic HTTP request
+    ///
+    /// :param: options         List of options for HTTP request
+    /// :param: completion      Completion handler for HTTP request
+    //FIXME Decouple real and mock implementations
+    public func send(request: NSMutableURLRequest) -> ApiResponse {
+        if self.useMock {
+            return sendMock(request)
+        } else {
+            return sendReal(request)
+        }
+>>>>>>> 379c2ade04ea7716632122604a35ec5676b18432
     }
     
     
@@ -53,8 +81,29 @@ public class Client {
     ///
     /// :param: options         List of options for HTTP request
     /// :param: completion      Completion handler for HTTP request
+<<<<<<< HEAD
    public func sendReal(request: NSMutableURLRequest, completionHandler: (response: ApiResponse) -> Void) {
         
+=======
+    //FIXME Decouple real and mock implementations
+    public func send(request: NSMutableURLRequest, completion: (response: ApiResponse) -> Void) {
+        if self.useMock {
+            sendMock(request) {
+                (r) in
+                completion(response: r)
+            }
+        } else {
+            sendReal(request) {
+                (r) in
+                completion(response: r)
+            }
+        }
+    }
+    
+    
+    public func sendReal(request: NSMutableURLRequest, completionHandler: (response: ApiResponse) -> Void) {
+        //        var trans = ApiResponse(request: request)
+>>>>>>> 379c2ade04ea7716632122604a35ec5676b18432
         println("inside sendReal :")
         var semaphore = dispatch_semaphore_create(0)
         var task: NSURLSessionDataTask = NSURLSession.sharedSession().dataTaskWithRequest(request) {
@@ -63,7 +112,10 @@ public class Client {
             var errors: NSError?
             let dict = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &errors) as! NSDictionary //FIXME Duplicated code -- move it to ApiResponse
             var apiresponse = ApiResponse(request: request, data: data, response: response, error: error, dict: dict) //FIXME Duplicated code -- extract into a method
+<<<<<<< HEAD
             var apiresponse = ApiResponse(request: request, data: data, response: response, error: error)
+=======
+>>>>>>> 379c2ade04ea7716632122604a35ec5676b18432
             completionHandler(response:apiresponse)
             dispatch_semaphore_signal(semaphore)
         }
@@ -72,11 +124,42 @@ public class Client {
         
     }
     
+<<<<<<< HEAD
    
     /// func jsonToString()
     ///
     /// @param: json        Json Object
     /// @response           String
+=======
+    public func sendReal(request: NSMutableURLRequest) -> ApiResponse {
+        
+        var response: NSURLResponse?
+        var error: NSError?
+        let data = NSURLConnection.sendSynchronousRequest(request, returningResponse: &response, error: &error)
+        println((response as! NSHTTPURLResponse).statusCode)
+        var errors: NSError?
+        let dict = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &errors) as! NSDictionary //FIXME Duplicated code -- move it to ApiResponse
+        var apiresponse = ApiResponse(request: request, data: data, response: response, error: error, dict: dict) //FIXME Duplicated code -- extract into a method
+        //        trans.setData(data)
+        //        trans.setDict(readdata)
+        //        trans.setResponse(response)
+        //        trans.setError(error)
+        
+        return apiresponse
+    }
+    
+    public func sendMock(request: NSMutableURLRequest) -> ApiResponse {
+        
+        var data: NSData?
+        var response: NSURLResponse?
+        var error: NSError?
+        var dict: NSDictionary?
+        var trans = ApiResponse(request: request, data: data, response: response, error: error, dict: dict)
+        return trans
+    }
+    
+    
+>>>>>>> 379c2ade04ea7716632122604a35ec5676b18432
     public func jsonToString(json: [String: AnyObject]) -> String {
         var result = "{"
         var delimiter = ""
