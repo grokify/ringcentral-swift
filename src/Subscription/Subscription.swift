@@ -116,24 +116,7 @@ public class Subscription: NSObject, PNObjectEventListener {
             }
         }
     }
-<<<<<<< HEAD
-=======
     
-    /// Set Keep Polling
-    //FIXME This is not needed -- it's PHP stuff
-    public func setKeepPolling(flag: Bool? = false) {
-        self._keepPolling = flag!
-    }
-    
-    /// Keep Polling
-    //FIXME This is not needed -- it's PHP stuff
-    public func keepPolling() -> Bool{
-        return self._keepPolling
-    }
-    
-    // getFullEventFilters()
-    
->>>>>>> 379c2ade04ea7716632122604a35ec5676b18432
     /// Renews the subscription
     ///
     /// :param: options         List of options for PubNub
@@ -201,20 +184,8 @@ public class Subscription: NSObject, PNObjectEventListener {
         }
         
     }
-<<<<<<< HEAD
-   /// Sets a method that will run after every PubNub callback
-=======
-    
-    /// Unsubscribes from the current subscription
-    //FIXME This is not needed
-    public func destroy() {
-        if let sub = self.subscription {
-            unsubscribe()
-        }
-    }
     
     /// Sets a method that will run after every PubNub callback
->>>>>>> 379c2ade04ea7716632122604a35ec5676b18432
     ///
     /// :param: functionHolder      Function to be ran after every PubNub callback
     public func setMethod(functionHolder: ((arg: String) -> Void)) {

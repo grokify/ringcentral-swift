@@ -196,7 +196,6 @@ public class Platform {
   
     /// Check if the accessToken is valed
     func ensureAuthentication() {
-        println("Inside EnsureAuthentication")
         if (!self.auth.accessTokenValid()) {
             refresh()
         }
