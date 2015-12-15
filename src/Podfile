@@ -1,0 +1,10 @@
+use_frameworks!
+platform :osx, '10.10'
+link_with 'src', 'srcTest'
+    target 'src' do
+        source 'https://github.com/CocoaPods/Specs'
+        pod 'PubNub', '~>4.0'
+    end
+    target 'srcTest' do
+
+    end

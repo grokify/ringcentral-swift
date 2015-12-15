@@ -1,13 +1,11 @@
 language: objective-c
 
+osx_image: xcode6.4
+xcode_sdk: iphonesimulator
+
 branches:
  only:
  - master
 
-xcode_project: demo/demo.xcworkspace
-xcode_scheme: demoTests
-osx_image: xcode6.4
-xcode_sdk: iphonesimulator
-
-script:
-- xcodebuild clean build test -workspace demo/demo.xcworkspace -scheme demoTests -sdk iphonesimulator
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
