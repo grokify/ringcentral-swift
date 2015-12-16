@@ -299,11 +299,3 @@ public class Subscription: NSObject, PNObjectEventListener {
         return NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! NSDictionary
     }
 }
-
-
-
-
-
-
-
-

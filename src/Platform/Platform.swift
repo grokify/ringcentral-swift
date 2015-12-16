@@ -59,15 +59,12 @@ public class Platform {
     /// @param: options           The password of the RingCentral account
     /// @response: ApiResponse    The password of the RingCentral account
     public func createUrl(path: String, options: [String: AnyObject]) -> String {
-        println("Inside CreateURL")
         var builtUrl = ""
         if(options["skipAuthCheck"] === true){
             builtUrl = builtUrl + self.server + path
-            println("The Built url is :"+builtUrl)
             return builtUrl
         }
         builtUrl = builtUrl + self.server + self.URL_PREFIX + "/" + self.API_VERSION + path
-        println("The Built url is :"+builtUrl)
         return builtUrl
     }
     
@@ -85,9 +82,6 @@ public class Platform {
             "refresh_token_ttl": self.REFRESH_TOKEN_TTL
             ])
         self.auth.setData(response.getDict())
-        println("Is access token valid : ",self.auth.accessTokenValid())
-        println("The auth data is : ")
-        println(response.JSONStringify(response.getDict(), prettyPrinted: true))
         return response
     }
     
@@ -97,7 +91,6 @@ public class Platform {
     /// **Caution**: Refreshing an accessToken will deplete it's current time, and will
     /// not be appended to following accessToken.
     public func refresh() -> ApiResponse {
-        println("Inside Rfresh")
         if(!self.auth.refreshTokenValid()){
             NSException(name: "Refresh token has expired", reason: "reason", userInfo: nil).raise()
         }
@@ -108,12 +101,7 @@ public class Platform {
             "access_token_ttl": self.ACCESS_TOKEN_TTL,
             "refresh_token_ttl": self.REFRESH_TOKEN_TTL
             ])
-        println("Refresh : Successfull return from requestToken")
-        println(response.getDict())
         self.auth.setData(response.getDict())
-        println("Is access token valid",self.auth.accessTokenValid())
-        println("The auth data is :")
-        println(response.JSONStringify(response.getDict(), prettyPrinted: true))
         return response
     }
     
@@ -177,7 +165,6 @@ public class Platform {
     func apiKey() -> String {
         let plainData = (self.appKey + ":" + self.appSecret as NSString).dataUsingEncoding(NSUTF8StringEncoding)
         let base64String = plainData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-        println("apiKey:",base64String)
         return base64String
     }
     
@@ -194,6 +181,12 @@ public class Platform {
         return response
     }
   
+    
+    
+    public func isAuthorized() -> Bool {
+        return auth.isAccessTokenValid()
+    }
+    
     /// Check if the accessToken is valed
     func ensureAuthentication() {
         if (!self.auth.accessTokenValid()) {

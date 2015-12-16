@@ -26,7 +26,7 @@ var subscription = rcsdk.createSubscription()
 var multipartBuilder = rcsdk.createMultipartBuilder()
 println("Platform singleton")
 response = platform.login(username, ext:"101", password: password)
-println(response.getDict())
+println(response.JSONStringify(response.getDict(), prettyPrinted: true))
 
 // Test a GET request
 
@@ -34,22 +34,11 @@ println(response.getDict())
 
 platform.get("/account/~/extension/~/call-log")
     {
-        (transaction) in
+        (apiresponse) in
         println("Response is :")
-        println(transaction.getResponse())
-        println("API response is :")
-        println(transaction.getDict())
+        println(apiresponse.JSONStringify(apiresponse.getDict(), prettyPrinted: true))
 }
-//sleep(2)
 
-// external refresh
-//
-//platform.refresh()
-//
-//
-//
-//print("completed call-logs")
-//
 //// add events to the subscription object
 subscription.addEvents(
     [
@@ -59,11 +48,8 @@ subscription.addEvents(
 //
 subscription.register()
     {
-        (transaction) in
-        println("Response is :")
-        println(transaction.getResponse())
-        println("API response is :")
-        println(transaction.getDict())
+        (apiresponse) in
+        println(apiresponse.JSONStringify(apiresponse.getDict(), prettyPrinted: true))
 }
 ////sleep(2)
 //
@@ -74,12 +60,8 @@ platform.post("/account/~/extension/~/ringout", body :
         "playPrompt": "true"
     ])
     {
-        (transaction) in
-        println("Response is :")
-        println(transaction.getResponse())
-        println("API response is :")
-        println(transaction.getDict())
-        
+        (apiresponse) in
+         println(apiresponse.JSONStringify(apiresponse.getDict(), prettyPrinted: true))
 }
 
 //sleep(5)
@@ -91,47 +73,8 @@ platform.post("/account/~/extension/~/sms", body :
         "text": "Test"
     ])
     {
-        (transaction) in
-        println("Response is :")
-        println(transaction.getResponse())
-        println("API response is :")
-        println(transaction.getDict())
-        
+        (apiresponse) in
+        println(apiresponse.JSONStringify(apiresponse.getDict(), prettyPrinted: true))
 }
 
 print("completed ring-out")
-
-//platform.delete("/account/~/extension/~/ringout", query :
-//    [
-//        "ringoutId": "264"
-//    ])
-//    {
-//        (transaction) in
-//        println("Response is :")
-//        println(transaction.getResponse())
-//        println("API response is :")
-//        println(transaction.getDict())
-//
-//    }
-//sleep(5)
-
-//print("ring-out cancelled")
-//
-//multipartBuilder.setBody([
-//    "to":["phoneNumber":"15856234120"],
-//    "faxResolution":"High"
-//    ])
-//multipartBuilder.add("sample testing", fileName: "sample.txt")
-//
-//multipartBuilder.request("/account/~/extension/~/fax")
-//{
-//    (transaction) in
-//    println("Response is :")
-//    println(transaction.getResponse())
-//    println("API response is :")
-//    println(transaction.getDict())
-//
-//}
-
-//sleep(2)
-//
