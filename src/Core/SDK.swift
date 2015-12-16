@@ -46,8 +46,6 @@ public class SDK {
         return self._platform
     }
     
-    
-    
     //  Create a subscription.
     
     //  :returns: Subscription object that has been currently created

@@ -137,9 +137,6 @@ public class Client {
                 }
             }
             truncatedQueryFinal = queryFinal.substringToIndex(queryFinal.endIndex.predecessor())
-            println("The truncated queryFInal is :"+truncatedQueryFinal)
-            
-            println("Non-Empty Query List")
         }
         
         // Body
@@ -150,10 +147,7 @@ public class Client {
         if (body?.count == 0) {
             println("Body is Empty")
             truncatedBodyFinal = ""
-            
         } else {
-            
-            // Check if body is for authentication
             if (headers["Content-type"] == "application/x-www-form-urlencoded;charset=UTF-8") {
                 if let q = body {
                     bodyFinal = ""
@@ -161,11 +155,8 @@ public class Client {
                         bodyFinal = bodyFinal + key + "=" + (q[key]! as! String) + "&"
                     }
                     truncatedBodyFinal = bodyFinal.substringToIndex(bodyFinal.endIndex.predecessor())
-                    println(truncatedBodyFinal)
                 }
             }
-                
-                // Format the body
             else {
                 if let json: AnyObject = body as AnyObject? {
                     println("Non-Empty Body")
@@ -173,19 +164,11 @@ public class Client {
                     truncatedBodyFinal = bodyFinal
                     println(truncatedBodyFinal)
                 }
-                //                else if (json = body as String)
             }
         }
         
-        
         // Create a NSMutableURLRequest
         var request = NSMutableURLRequest()
-        
-        // Get RID of these
-        println("Inside Create Request")
-        println("The url is :"+url)
-        println("The queryFinal is :"+queryFinal)
-        
         if let nsurl = NSURL(string: url + truncatedQueryFinal) {
             request = NSMutableURLRequest(URL: nsurl)
             request.HTTPMethod = method
@@ -194,8 +177,6 @@ public class Client {
                 request.setValue(headers[key], forHTTPHeaderField: key)
             }
         }
-        
         return request
     }
-    
 }
