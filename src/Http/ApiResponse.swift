@@ -11,12 +11,12 @@ import Foundation
 public class ApiResponse {
     
     // ApiResponse Constants
-    internal var jsonAsArray = [String: AnyObject]()
-    internal var jsonAsObject: AnyObject? = AnyObject?()
+    internal var jsonAsArray = [String: AnyObject]() //FIXME Remove
+    internal var jsonAsObject: AnyObject? = AnyObject?() //FIXME Remove
     internal var multipartTransactions: AnyObject? = AnyObject?()
     internal var request: NSMutableURLRequest?
     internal var raw: AnyObject? = AnyObject?()
-    internal var jsonAsString: String = ""
+    internal var jsonAsString: String = "" //FIXME Remove
     
     // Data Response Error Initialization
     private var data: NSData?
@@ -49,10 +49,12 @@ public class ApiResponse {
         return raw
     }
     
+    //FIXME Remove
     public func getJson() -> [String: AnyObject] {
         return jsonAsArray
     }
-    
+
+    //FIXME Remove
     public func getJsonAsString() -> String {
         return jsonAsString
     }
@@ -62,7 +64,8 @@ public class ApiResponse {
     }
     
     public func isOK() -> Bool {
-        return (self.response as! NSHTTPURLResponse).statusCode / 100 == 2
+        //FIXME Response may be undefined
+        return (self.response as! NSHTTPURLResponse).statusCode / 100 == 2 //FIXME
     }
     
     public func getError() -> NSError? {
@@ -87,9 +90,10 @@ public class ApiResponse {
     }
     
     func isContentType(type: String) -> Bool {
-        return false
+        return false //FIXME
     }
-    
+
+    //FIXME
     func getContentType() {
         
     }

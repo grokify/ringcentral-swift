@@ -42,6 +42,7 @@ public class SDK {
     /// Returns the Platform with the specified appKey and appSecret.
     
     /// :returns: A Platform to access the methods of the SDK
+    ///FIXME Be consistent with naming
     public func platform() -> Platform {
         return self._platform
     }

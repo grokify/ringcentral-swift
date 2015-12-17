@@ -40,12 +40,13 @@ public class Client {
     /// :param: options         List of options for HTTP request
     /// :param: completion      Completion handler for HTTP request
     /// @response: ApiResposne
+    ///FIXME This method should throw ApiException if something went wrong or apiresponse.ok is false
     public func send(request: NSMutableURLRequest) -> ApiResponse {
 
         var response: NSURLResponse?
         var error: NSError?
         let data = NSURLConnection.sendSynchronousRequest(request, returningResponse: &response, error: &error)
-        println((response as! NSHTTPURLResponse).statusCode)
+        println((response as! NSHTTPURLResponse).statusCode) //FIXME Remove
         var apiresponse = ApiResponse(request: request, data: data, response: response, error: error)
         return apiresponse
     }
@@ -56,6 +57,7 @@ public class Client {
     /// :param: options         List of options for HTTP request
     /// :param: completion      Completion handler for HTTP request
     /// @resposne: ApiResponse  Callback
+    ///FIXME Completion handler should always be called with 2 parameters: apiResponse and apiError (which can be nil)
     public func send(request: NSMutableURLRequest, completionHandler: (response: ApiResponse) -> Void) {
         
         println("inside sendReal :")
@@ -64,7 +66,8 @@ public class Client {
             
             (data, response, error) in
             var apiresponse = ApiResponse(request: request, data: data, response: response, error: error)
-            completionHandler(response:apiresponse)
+            //TODO var apierror = apiresponse.isOK() ? ApiException(apiresponse) : nil
+            completionHandler(response:apiresponse) //TODO apierror
             dispatch_semaphore_signal(semaphore)
         }
         task.resume()
@@ -77,6 +80,7 @@ public class Client {
     ///
     /// @param: json        Json Object
     /// @response           String
+    ///FIXME Move this to Core/Utils
     public func jsonToString(json: [String: AnyObject]) -> String {
         var result = "{"
         var delimiter = ""

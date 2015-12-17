@@ -110,6 +110,7 @@ public class Platform {
     /// @param: request     NSMutableURLRequest
     /// @param: options     list of options
     /// @response: NSMutableURLRequest
+    ///FIXME Remove path parameter
     public func inflateRequest(path: String, request: NSMutableURLRequest, options: [String: AnyObject]) -> NSMutableURLRequest {
         var check = 0
         if options["skipAuthCheck"] == nil {
@@ -129,7 +130,8 @@ public class Platform {
     /// @param: request     NSMutableURLRequest
     /// @param: options     list of options
     /// @response: ApiResponse
-    public func sendRequest(request: NSMutableURLRequest, path: String, options: [String: AnyObject]!, completion: (transaction: ApiResponse) -> Void) {
+    ///FIXME Remove path parameter
+    public func sendRequest(request: NSMutableURLRequest, path: String, options: [String: AnyObject]!, completion: (transaction: ApiResponse) -> Void) { //FIXME Rename transaction
         client.send(inflateRequest(path, request: request, options: options)) {
             (t) in
             completion(transaction: t)
@@ -137,6 +139,7 @@ public class Platform {
         }
     }
     
+    ///FIXME Remove path parameter
     public func sendRequest(request: NSMutableURLRequest, path: String, options: [String: AnyObject]!) -> ApiResponse {
         return client.send(inflateRequest(path, request: request, options: options))
     }
@@ -183,11 +186,11 @@ public class Platform {
   
     
     
-    public func isAuthorized() -> Bool {
+    public func isAuthorized() -> Bool { //FIXME REMOVE
         return auth.isAccessTokenValid()
     }
     
-    /// Check if the accessToken is valed
+    /// Check if the accessToken is valid
     func ensureAuthentication() {
         if (!self.auth.accessTokenValid()) {
             refresh()
@@ -202,7 +205,7 @@ public class Platform {
     /// @param: query           body
     /// @return ApiResponse     Callback
     public func get(url: String, query: [String: String] = ["":""], completion: (response: ApiResponse) -> Void) {
-        request([
+        request([ ///FIXME Assemble request here and send it using sendRequest method
             "method": "GET",
             "url": url,
             "query": query
@@ -221,7 +224,7 @@ public class Platform {
     /// @param: body            body
     /// @return ApiResponse     Callback
     public func post(url: String, body: [String: AnyObject] = ["":""], completion: (respsone: ApiResponse) -> Void) {
-        request([
+        request([ ///FIXME Assemble request here and send it using sendRequest method
             "method": "POST",
             "url": url,
             "body": body
@@ -239,7 +242,7 @@ public class Platform {
     /// @param: body            body
     /// @return ApiResponse     Callback
     public func put(url: String, body: [String: AnyObject] = ["":""], completion: (respsone: ApiResponse) -> Void) {
-        request([
+        request([ ///FIXME Assemble request here and send it using sendRequest method
             "method": "PUT",
             "url": url,
             "body": body
@@ -257,7 +260,7 @@ public class Platform {
     /// @param: query           body
     /// @return ApiResponse     Callback
     public func delete(url: String, query: [String: String] = ["":""], completion: (response: ApiResponse) -> Void) {
-        request([
+        request([ ///FIXME Assemble request here and send it using sendRequest method
             "method": "DELETE",
             "url": url,
             "query": query
@@ -272,6 +275,7 @@ public class Platform {
     /// Generic HTTP request method
     ///
     /// @param: options     List of options for HTTP request
+    ///FIXME REMOVE
     func request(options: [String: AnyObject]) -> ApiResponse {
         var method = ""
         var url = ""
@@ -307,6 +311,7 @@ public class Platform {
     ///
     /// :param: options         List of options for HTTP request
     /// :param: completion      Completion handler for HTTP request
+    ///FIXME REMOVE
     func request(options: [String: AnyObject], completion: (response: ApiResponse) -> Void) {
         var method = ""
         var url = ""
