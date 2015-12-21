@@ -11,7 +11,6 @@ import Foundation
 
 println("Hello, World!")
 
-
 var app_key: String = ""
 var app_secret = ""
 var username = ""
@@ -21,7 +20,7 @@ var response: ApiResponse
 
 var rcsdk = SDK(appKey: app_key, appSecret: app_secret, server: SDK.RC_SERVER_SANDBOX)
 println("SDK initialized")
-var platform = rcsdk.platform()
+var platform = rcsdk.getPlatform()
 var subscription = rcsdk.createSubscription()
 var multipartBuilder = rcsdk.createMultipartBuilder()
 println("Platform singleton")
@@ -45,14 +44,15 @@ subscription.addEvents(
         "/restapi/v1.0/account/~/extension/~/presence",
         "/restapi/v1.0/account/~/extension/~/message-store"
     ])
-//
+
 subscription.register()
     {
         (apiresponse) in
-        println(apiresponse.JSONStringify(apiresponse.getDict(), prettyPrinted: true))
+        println("Subscribing"+apiresponse.JSONStringify(apiresponse.getDict(), prettyPrinted: true))
+        println("Subscribing",response.getResponse())
 }
-////sleep(2)
-//
+
+
 platform.post("/account/~/extension/~/ringout", body :
     [ "to": ["phoneNumber": "18315941779"],
         "from": ["phoneNumber": "15856234190"],
@@ -63,9 +63,6 @@ platform.post("/account/~/extension/~/ringout", body :
         (apiresponse) in
          println(apiresponse.JSONStringify(apiresponse.getDict(), prettyPrinted: true))
 }
-
-//sleep(5)
-
 
 platform.post("/account/~/extension/~/sms", body :
     [ "to": [["phoneNumber": "18315941779"]],
