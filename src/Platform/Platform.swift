@@ -107,18 +107,15 @@ public class Platform {
     
     /// func inflateRequest ()
     ///
-    /// @param: request     NSMutableURLRequest
-    /// @param: options     list of options
+    /// @param: request                 NSMutableURLRequest
+    /// @param: options                 list of options
     /// @response: NSMutableURLRequest
-    ///FIXME Remove path parameter
-    public func inflateRequest(path: String, request: NSMutableURLRequest, options: [String: AnyObject]) -> NSMutableURLRequest {
-        var check = 0
+    public func inflateRequest(request: NSMutableURLRequest, options: [String: AnyObject]) -> NSMutableURLRequest {
         if options["skipAuthCheck"] == nil {
             ensureAuthentication()
             let authHeader = self.auth.tokenType() + " " + self.auth.accessToken()
             request.setValue(authHeader, forHTTPHeaderField: "Authorization")
         }
-
         return request
     }
     
@@ -127,21 +124,23 @@ public class Platform {
     
     /// func sendRequest ()
     ///
-    /// @param: request     NSMutableURLRequest
-    /// @param: options     list of options
-    /// @response: ApiResponse
-    ///FIXME Remove path parameter
-    public func sendRequest(request: NSMutableURLRequest, path: String, options: [String: AnyObject]!, completion: (transaction: ApiResponse) -> Void) { //FIXME Rename transaction
-        client.send(inflateRequest(path, request: request, options: options)) {
+    /// @param: request             NSMutableURLRequest
+    /// @param: options             list of options
+    /// @response: ApiResponse      Callback
+    public func sendRequest(request: NSMutableURLRequest, options: [String: AnyObject]!, completion: (apiresponse: ApiResponse) -> Void) {
+        client.send(inflateRequest(request, options: options)) {
             (t) in
-            completion(transaction: t)
-            
+            completion(apiresponse: t)
         }
     }
     
-    ///FIXME Remove path parameter
-    public func sendRequest(request: NSMutableURLRequest, path: String, options: [String: AnyObject]!) -> ApiResponse {
-        return client.send(inflateRequest(path, request: request, options: options))
+    /// func sendRequest () - without Completetion handler
+    ///
+    /// @param: request     NSMutableURLRequest
+    /// @param: options     list of options
+    /// @response: ApiResponse
+    public func sendRequest(request: NSMutableURLRequest, options: [String: AnyObject]!) -> ApiResponse {
+        return client.send(inflateRequest(request, options: options))
     }
     
     ///  func requestToken ()
@@ -158,9 +157,8 @@ public class Platform {
         options["skipAuthCheck"] = true
         let urlCreated = createUrl(path,options: options)
         let request = self.client.createRequest("POST", url: urlCreated, query: nil, body: body, headers: headers)
-        return self.sendRequest(request, path: path, options: options)
+        return self.sendRequest(request, options: options)
     }
-    
     
     
     
@@ -185,11 +183,6 @@ public class Platform {
     }
   
     
-    
-    public func isAuthorized() -> Bool { //FIXME REMOVE
-        return auth.isAccessTokenValid()
-    }
-    
     /// Check if the accessToken is valid
     func ensureAuthentication() {
         if (!self.auth.accessTokenValid()) {
@@ -198,41 +191,33 @@ public class Platform {
     }
     
     
-    
     //  Generic Method calls  ( HTTP ) GET
     ///
     /// @param: url             token endpoint
     /// @param: query           body
     /// @return ApiResponse     Callback
-    public func get(url: String, query: [String: String] = ["":""], completion: (response: ApiResponse) -> Void) {
-        request([ ///FIXME Assemble request here and send it using sendRequest method
-            "method": "GET",
-            "url": url,
-            "query": query
-            ])
-            {
-                (r) in
-                completion(response: r)
-                
+    public func get(url: String, query: [String: String]?=["":""], body: [String: AnyObject]?=nil, headers: [String: String]?=["":""], options: [String: AnyObject]?=["":""], completion: (response: ApiResponse) -> Void) {
+        
+        let urlCreated = createUrl(url,options: options!)
+        sendRequest(self.client.createRequest("GET", url: urlCreated, query: query, body: body, headers: headers!), options: options) {
+            (r) in
+            completion(response: r)
+            
         }
     }
     
-    
+   
     // Generic Method calls  ( HTTP ) POST
     ///
     /// @param: url             token endpoint
     /// @param: body            body
     /// @return ApiResponse     Callback
-    public func post(url: String, body: [String: AnyObject] = ["":""], completion: (respsone: ApiResponse) -> Void) {
-        request([ ///FIXME Assemble request here and send it using sendRequest method
-            "method": "POST",
-            "url": url,
-            "body": body
-            ])
-            {
-                (r) in
-                completion(respsone: r)
-                
+    public func post(url: String, query: [String: String]?=["":""], body: [String: AnyObject] = ["":""], headers: [String: String]?=["":""], options: [String: AnyObject]?=["":""], completion: (apiresponse: ApiResponse) -> Void) {
+        
+        let urlCreated = createUrl(url,options: options!)
+        sendRequest(self.client.createRequest("POST", url: urlCreated, query: query, body: body, headers: headers!), options: options) {
+            (r) in
+            completion(apiresponse: r)
         }
     }
     
@@ -241,16 +226,12 @@ public class Platform {
     /// @param: url             token endpoint
     /// @param: body            body
     /// @return ApiResponse     Callback
-    public func put(url: String, body: [String: AnyObject] = ["":""], completion: (respsone: ApiResponse) -> Void) {
-        request([ ///FIXME Assemble request here and send it using sendRequest method
-            "method": "PUT",
-            "url": url,
-            "body": body
-            ])
-            {
-                (r) in
-                completion(respsone: r)
-                
+    public func put(url: String, query: [String: String]?=["":""], body: [String: AnyObject] = ["":""], headers: [String: String]?=["":""], options: [String: AnyObject]?=["":""], completion: (apiresponse: ApiResponse) -> Void) {
+        
+        let urlCreated = createUrl(url,options: options!)
+        sendRequest(self.client.createRequest("PUT", url: urlCreated, query: query, body: body, headers: headers!), options: options) {
+            (r) in
+            completion(apiresponse: r)
         }
     }
     
@@ -259,90 +240,12 @@ public class Platform {
     /// @param: url             token endpoint
     /// @param: query           body
     /// @return ApiResponse     Callback
-    public func delete(url: String, query: [String: String] = ["":""], completion: (response: ApiResponse) -> Void) {
-        request([ ///FIXME Assemble request here and send it using sendRequest method
-            "method": "DELETE",
-            "url": url,
-            "query": query
-            ])
-            {
-                (r) in
-                completion(response: r)
-                
-        }
-    }
-    
-    /// Generic HTTP request method
-    ///
-    /// @param: options     List of options for HTTP request
-    ///FIXME REMOVE
-    func request(options: [String: AnyObject]) -> ApiResponse {
-        var method = ""
-        var url = ""
-        var headers = [String: String]()
-        headers["Content-Type"] = "application/json"
-        headers["Accept"] = "application/json"
-        var query: [String: String]?
-        var body = [String: AnyObject]()
-        if let m = options["method"] as? String {
-            method = m
-        }
-        if let u = options["url"] as? String {
-            url =  u
-        }
-        if let h = options["headers"] as? [String: String] {
-            headers = h
-        }
-        if let q = options["query"] as? [String: String] {
-            query = q
-        }
-        else {
-            query = nil
-        }
-        if let b = options["body"] as? [String: AnyObject] {
-            body = options["body"] as! [String: AnyObject]
-        }
+    public func delete(url: String, query: [String: String] = ["":""], body: [String: AnyObject]?=nil, headers: [String: String]?=["":""], options: [String: AnyObject]?=["":""], completion: (apiresponse: ApiResponse) -> Void) {
         
-        return sendRequest(self.client.createRequest(method, url: url, query: query, body: body, headers: headers), path: url, options: options)
-    }
-    
-    
-    /// Generic HTTP request with completion handler ( call-back )
-    ///
-    /// :param: options         List of options for HTTP request
-    /// :param: completion      Completion handler for HTTP request
-    ///FIXME REMOVE
-    func request(options: [String: AnyObject], completion: (response: ApiResponse) -> Void) {
-        var method = ""
-        var url = ""
-        var headers = [String: String]()
-        headers["Content-Type"] = "application/json"
-        headers["Accept"] = "application/json"
-        var query: [String: String]?
-        var body = [String: AnyObject]()
-        if let m = options["method"] as? String {
-            method = m
-        }
-        if let u = options["url"] as? String {
-            url =  u
-        }
-        if let h = options["headers"] as? [String: String] {
-            headers = h
-        }
-        if let q = options["query"] as? [String: String] {
-            query = q
-        }
-        if let b = options["body"] as? [String: AnyObject] {
-            body = options["body"] as! [String: AnyObject]
-        }
-
-        let urlCreated = createUrl(url,options: options)
-        
-        sendRequest(self.client.createRequest(method, url: urlCreated, query: query, body: body, headers: headers), path: url, options: options) {
+        let urlCreated = createUrl(url,options: options!)
+        sendRequest(self.client.createRequest("DELETE", url: urlCreated, query: query, body: body, headers: headers!), options: options) {
             (r) in
-            completion(response: r)
-            
+            completion(apiresponse: r)
         }
-        
     }    
 }

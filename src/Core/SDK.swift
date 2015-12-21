@@ -17,9 +17,9 @@ public class SDK {
     public static var RC_SERVER_SANDBOX: String = "https://platform.devtest.ringcentral.com"
     
     // Platform variable, version, and current Subscriptions
-    var _platform: Platform
+    var platform: Platform
     let server: String
-    var _client: Client
+    var client: Client
     var serverVersion: String!
     var versionString: String!
     var logger: Bool = false
@@ -33,8 +33,8 @@ public class SDK {
     /// @param: appName     appName ( optional )
     /// @param: appVersion  appVersion ( optional )
     public init(appKey: String, appSecret: String, server: String, appName: String?="", appVersion: String?="") {
-        self._client = Client()
-        _platform = Platform(client: self._client, appKey: appKey, appSecret: appSecret, server: server, appName: appName!, appVersion: appVersion!)
+        self.client = Client()
+        platform = Platform(client: self.client, appKey: appKey, appSecret: appSecret, server: server, appName: appName!, appVersion: appVersion!)
         self.server = server
     }
     
@@ -42,16 +42,15 @@ public class SDK {
     /// Returns the Platform with the specified appKey and appSecret.
     
     /// :returns: A Platform to access the methods of the SDK
-    ///FIXME Be consistent with naming
-    public func platform() -> Platform {
-        return self._platform
+    public func getPlatform() -> Platform {
+        return self.platform
     }
     
     //  Create a subscription.
     
     //  :returns: Subscription object that has been currently created
     public func createSubscription() -> Subscription {
-        return Subscription(platform: self._platform)
+        return Subscription(platform: self.platform)
     }
     
     //  Create a multi-part builder

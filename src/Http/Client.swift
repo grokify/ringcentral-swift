@@ -9,6 +9,7 @@
 import Foundation
 
 
+
 public class Client {
     
     // Client Variables
@@ -46,7 +47,6 @@ public class Client {
         var response: NSURLResponse?
         var error: NSError?
         let data = NSURLConnection.sendSynchronousRequest(request, returningResponse: &response, error: &error)
-        println((response as! NSHTTPURLResponse).statusCode) //FIXME Remove
         var apiresponse = ApiResponse(request: request, data: data, response: response, error: error)
         return apiresponse
     }
@@ -59,8 +59,7 @@ public class Client {
     /// @resposne: ApiResponse  Callback
     ///FIXME Completion handler should always be called with 2 parameters: apiResponse and apiError (which can be nil)
     public func send(request: NSMutableURLRequest, completionHandler: (response: ApiResponse) -> Void) {
-        
-        println("inside sendReal :")
+
         var semaphore = dispatch_semaphore_create(0)
         var task: NSURLSessionDataTask = NSURLSession.sharedSession().dataTaskWithRequest(request) {
             
@@ -75,45 +74,7 @@ public class Client {
         
     }
     
-    
-    /// func jsonToString()
-    ///
-    /// @param: json        Json Object
-    /// @response           String
-    ///FIXME Move this to Core/Utils
-    public func jsonToString(json: [String: AnyObject]) -> String {
-        var result = "{"
-        var delimiter = ""
-        for key in json.keys {
-            result += delimiter + "\"" + key + "\":"
-            var item: AnyObject? = json[key]
-            if let check = item as? String {
-                result += "\"" + check + "\""
-            } else {
-                if let check = item as? [String: AnyObject] {
-                    result += jsonToString(check)
-                } else if let check = item as? [AnyObject] {
-                    result += "["
-                    delimiter = ""
-                    for item in check {
-                        result += "\n"
-                        result += delimiter + "\""
-                        result += item.description + "\""
-                        delimiter = ","
-                    }
-                    result += "]"
-                } else {
-                    result += item!.description
-                }
-            }
-            delimiter = ","
-        }
-        result = result + "}"
-        
-        println("Body String is :"+result)
-        return result
-    }
-    
+
     
     /// func createRequest()
     ///
@@ -123,12 +84,38 @@ public class Client {
     /// @param: body        body ( optional )
     /// @param: headers     headers
     /// @response: NSMutableURLRequest
-    public func createRequest(method: String, url: String, query: [String: String]?=nil, body: [String: AnyObject]?, headers: [String: String]) -> NSMutableURLRequest {
+    public func createRequest(method: String, url: String, query: [String: String]?=nil, body: [String: AnyObject]?, headers: [String: String]!) -> NSMutableURLRequest {
+
+        var parse = parseProperties(method, url: url, query: query, body: body, headers: headers)
         
+        // Create a NSMutableURLRequest
+        var request = NSMutableURLRequest()
+        if let nsurl = NSURL(string: url + (parse["query"] as! String)) {
+            request = NSMutableURLRequest(URL: nsurl)
+            request.HTTPMethod = method
+            request.HTTPBody = parse["body"]!.dataUsingEncoding(NSUTF8StringEncoding)
+                for (key,value) in parse["headers"] as! Dictionary<String, String> {
+                    request.setValue(value, forHTTPHeaderField: key)
+                }
+        }
+        return request
+    }
+    
+    // func parseProperties
+    /// @param: method          NSMutableURLRequest
+    /// @param: url             list of options
+    /// @param: query           query ( optional )
+    /// @param: body            body ( optional )
+    /// @param: headers         headers
+    /// @response: Dictionary   
+    internal func parseProperties(method: String, url: String, query: [String: String]?=nil, body: [String: AnyObject]?, headers: [String: String]!) -> [String: AnyObject] {
+        
+        var parse = [String: AnyObject]()
         var truncatedBodyFinal: String = ""
         var truncatedQueryFinal: String = ""
         var queryFinal: String = ""
         
+        // Check for query
         if let q = query {
             queryFinal = "?"
             
@@ -143,15 +130,15 @@ public class Client {
             truncatedQueryFinal = queryFinal.substringToIndex(queryFinal.endIndex.predecessor())
         }
         
-        // Body
+        // Check for Body
         var bodyString: String
         var bodyFinal: String = ""
         
         // Check if the body is empty
-        if (body?.count == 0) {
-            println("Body is Empty")
+        if (body == nil || body?.count == 0) {
             truncatedBodyFinal = ""
-        } else {
+        }
+        else {
             if (headers["Content-type"] == "application/x-www-form-urlencoded;charset=UTF-8") {
                 if let q = body {
                     bodyFinal = ""
@@ -162,25 +149,28 @@ public class Client {
                 }
             }
             else {
-                if let json: AnyObject = body as AnyObject? {
-                    println("Non-Empty Body")
-                    bodyFinal = jsonToString(json as! [String : AnyObject])
+                if let json: AnyObject = body as AnyObject? {                    
+                    bodyFinal = Util.jsonToString(json as! [String : AnyObject])
                     truncatedBodyFinal = bodyFinal
-                    println(truncatedBodyFinal)
                 }
             }
         }
         
-        // Create a NSMutableURLRequest
-        var request = NSMutableURLRequest()
-        if let nsurl = NSURL(string: url + truncatedQueryFinal) {
-            request = NSMutableURLRequest(URL: nsurl)
-            request.HTTPMethod = method
-            request.HTTPBody = truncatedBodyFinal.dataUsingEncoding(NSUTF8StringEncoding)
-            for key in headers.keys {
-                request.setValue(headers[key], forHTTPHeaderField: key)
-            }
+        parse["query"] = truncatedQueryFinal
+        parse["body"] = truncatedBodyFinal
+        parse["headers"] = [String: [String: String]]()
+        // check for Headers
+        if headers.count == 1 {
+            var headersFinal = [String: String]()
+            headersFinal["Content-Type"] = "application/json"
+            headersFinal["Accept"] = "application/json"
+            parse["headers"] = headersFinal
         }
-        return request
+        else {
+         parse["headers"] = headers
+        }
+        return parse
     }
 }
+
+

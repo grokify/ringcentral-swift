@@ -51,7 +51,6 @@ public class Auth {
     public func setData(data: Dictionary<String, AnyObject>) -> Auth {
         
         if data.count < 0 {
-            println("The count is :",data.count)
             return self
         }
         
@@ -173,7 +172,6 @@ public class Auth {
     ///
     /// :returns: String of 'refresh token'
     public func refreshToken() -> String {
-        println("The refresh token is :"+self.refresh_token!)
         return self.refresh_token!
     }
     

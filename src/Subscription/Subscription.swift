@@ -129,7 +129,6 @@ public class Subscription: NSObject, PNObjectEventListener {
             ]) {
                 (transaction) in
                 let dictionary = transaction.getDict()
-                println("The subscription RENEW dictionary is :", dictionary)
                 if let error = dictionary["errorCode"] {
                     self.subscribe(options){
                         (t) in
@@ -159,7 +158,6 @@ public class Subscription: NSObject, PNObjectEventListener {
                 (transaction) in
                 
                 let dictionary = transaction.getDict()
-                println("The subscription dictionary is :", dictionary)
                 var sub = ISubscription()
                 sub.eventFilters =      dictionary["eventFilters"] as! [String]
                 self.eventFilters =     dictionary["eventFilters"] as! [String]
@@ -180,9 +178,7 @@ public class Subscription: NSObject, PNObjectEventListener {
                 del.encryptionKey =     dictDelivery["encryptionKey"] as! String
                 self.subscription!.deliveryMode = del
                 self.subscribeAtPubnub()
-                
         }
-        
     }
     
     /// Sets a method that will run after every PubNub callback
@@ -265,7 +261,7 @@ public class Subscription: NSObject, PNObjectEventListener {
         if let str: String = NSString(data: endMarker, encoding: NSUTF8StringEncoding) as? String  {
             self.function(arg: str)
         } else {
-            println("error")
+             NSException(name: "Error", reason: "Error", userInfo: nil).raise()
         }
     }
     
